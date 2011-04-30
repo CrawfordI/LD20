@@ -3,6 +3,7 @@ package
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import net.flashpunk.Engine;
+	import net.flashpunk.FP;
 	
 	/**
 	 * ...
@@ -15,6 +16,7 @@ package
 		{	
 			//maybe?
 			super(640, 480, 60, true);
+			FP.world = new MainMenu();
 		}
 		
 		override public function init():void {
