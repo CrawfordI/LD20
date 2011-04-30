@@ -68,7 +68,7 @@ package CursedIdol
 				}
 			}
 			else {
-				type = "";
+				type = "crater";
 			}						
 		}
 	
