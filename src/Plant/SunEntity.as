@@ -10,8 +10,8 @@ package Plant
 	public class SunEntity extends Entity
 	{
 
-		private var dx:int = 2;
-		private var dy:int = 0;
+		private var dx:Number = 0.75;
+		private var dy:Number = 0;
 		
 		[Embed(source = '../../gfx/plant/plant_sun.png')]
 		private const SUN:Class;
