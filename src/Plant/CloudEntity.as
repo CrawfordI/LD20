@@ -34,38 +34,46 @@ package Plant
 		{
 			dest.x = FP.rand( FP.width );
 			dest.y = FP.rand( 150 );
+			trace( "NEW DEST! (" + dest.x + ", " + dest.y + ")" );
 		}
 		
 		private function generateNewSpeed():void
 		{
-			dx = FP.rand( 5 ) + 1;
-			dy = FP.rand( 5 ) + 1;
+			//dx = FP.rand( 5 ) + 1;
+			//dy = FP.rand( 5 ) + 1;
+			dx = 1;
+			dy = 1;
 		}
 		
 		override public function update():void 
 		{
 			sprCloud.update();
 			
-			if ( y > dest.y )
+			if ( dest.y < y && dy >= 0 )
 				dy = -1 * dy;
-			else if ( dy < 0 )
+			if ( dest.y > y && dy < 0 )
 				dy = -1 * dy;
-			if ( x > dest.x )
+			if ( dest.x < x && dx >= 0 )
+				dx = -1 * dy;
+			if ( dest.x > x && dx < 0 )
 				dx = -1 * dx;
-			else if ( dy < 0 )
-				dx = -1 * dx;
+			
 			
 			var r:int = FP.rand(3) + 1;
 			switch (r) {
 				case 1:
-					x += dx;
-					y += dy;
+					if( x != dest.x )
+						x += dx;
+					if( y != dest.y )
+						y += dy;
 					break;
 				case 2:
-					x += dx;
+					if( x != dest.x )
+						x += dx;
 					break;
 				case 3:
-					y += dy;
+					if( y != dest.y )
+						y += dy;
 					break;
 			}
 			
@@ -73,8 +81,14 @@ package Plant
 				generateNewSpeed();
 			}
 			
-			if ( x == dest.x && y == dest.y )
+			if (collideRect(x, y, dest.x, dest.y, 10, 10)) {
 				generateNewDestination();
+			}
+			
+		/*	if ( x <= dest.x + 5 && x >= dest.x - 5 && y >= dest.y - 5 && y <= dest.y + 5 ) {
+				trace( "NEW DEST" );
+				generateNewDestination();
+			}*/
 			
 		}
 		
