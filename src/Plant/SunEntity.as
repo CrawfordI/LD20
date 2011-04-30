@@ -30,15 +30,14 @@ package Plant
 		
 		override public function update():void 
 		{
-			sprSun.update();
+			super.update();
 			
 			x += dx;
 			y += dy;
 			
-			if ( x <= 0 )
-				dx = 2;
-			if ( x + sprSun.width >= FP.width )
-				dx = -2;
+			// Switch directions
+			if ( x <= 0 || x + sprSun.width >= FP.width )
+				dx = dx * -1;
 			
 		}
 		
