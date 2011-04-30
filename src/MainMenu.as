@@ -39,7 +39,7 @@ package
 				if ( i == GAME_PLANT )
 					opt = new Text("PLANT!!!",  menuOrigin.x, menuOrigin.y +(20 * (i + 1)));
 				else if ( i == GAME_IDOL )
-					opt = new Text("Cursed Idole",  menuOrigin.x, menuOrigin.y +(20 * (i + 1)));
+					opt = new Text("Cursed Idol",  menuOrigin.x, menuOrigin.y +(20 * (i + 1)));
 				else
 					opt = new Text("Option " + i, menuOrigin.x, menuOrigin.y +(20 * (i + 1)));
 				menuOptions.push(opt);
