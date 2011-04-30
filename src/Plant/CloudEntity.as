@@ -25,7 +25,7 @@ package Plant
 		public function CloudEntity( start_x:int = 0, start_y:int = 0 )
 		{
 			sprCloud = new Spritemap(CLOUD, 75, 50);
-			sprCloud.add("default", [0], 1, true);
+			sprCloud.add("default", [0, 1, 2, 1], 4, true);
 			sprCloud.play("default");
 			graphic = sprCloud;
 			

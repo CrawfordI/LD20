@@ -1,6 +1,7 @@
 package Plant
 {
 	import net.flashpunk.graphics.Backdrop;
+	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.World;
 	import net.flashpunk.graphics.Text;
 	import net.flashpunk.graphics.Image;
@@ -13,7 +14,7 @@ package Plant
 	public class PlantGame extends World
 	{
 		
-		private var Background:Image;
+		private var Background:Spritemap;
 		private var Sun:SunEntity;
 		private var Clouds:Array;
 		private var Cloudiness:Number;
@@ -27,11 +28,14 @@ package Plant
 
 		public function PlantGame() 
 		{	
-			Background = new Image(BACKGROUND);
+			//Background = new Image(BACKGROUND);
+			Background = new Spritemap(BACKGROUND, 640, 480)
 			Sun = new SunEntity();
 			Clouds = new Array();
 			ThePlant = new PlantEntity();
 			
+			Background.add("default", [0, 1, 2, 1], 8, true);
+			Background.play("default");
 			
 			var gameTitle:Text;
 			Text.size = 20;
