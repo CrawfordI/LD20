@@ -19,8 +19,26 @@ package Plant
 		private var dx:Number = 1;
 		private var dy:Number = 1;
 		private var selected:Boolean;
+		private var droppedWater:Boolean = false;
 		
 		public var sprCloud:Spritemap;
+		
+		public function alreadyDroppedWater():Boolean {
+			return droppedWater;
+		}
+		
+		public function dropWater():WaterDropEntity {
+			droppedWater = true;
+			return new WaterDropEntity( FP.height - FP.rand( 150 ), centerX, centerY );
+		}
+		
+		public function wasSelected():Boolean {
+			if ( selected ) {
+				selected = false;
+				return true;
+			}
+			return false;
+		}
 		
 		public function CloudEntity( start_x:int = 0, start_y:int = 0 )
 		{
