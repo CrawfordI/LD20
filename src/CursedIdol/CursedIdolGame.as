@@ -32,11 +32,14 @@ package CursedIdol
 		private var lost:Boolean;
 		
 		private var lostText:Text;
+		private var promptText:Text;
+		
+		private var prevWorld:World;
 		
 		[Embed(source = "../../gfx/idol/grass.png")]
 		public const GRASS:Class;
 		
-		public function CursedIdolGame() 		
+		public function CursedIdolGame(pw:World) 		
 		{			
 			offset = 0;
 			
@@ -44,7 +47,7 @@ package CursedIdol
 			
 			lost = false;
 			
-
+			prevWorld = pw;
 			
 			addGraphic(new Image(GRASS));
 			//add(new Meteor());		
@@ -53,7 +56,11 @@ package CursedIdol
 			
 			Text.size = 30;
 		    lostText = new Text("You lose!", FP.halfWidth, FP.halfHeight);
+			Text.size = 14;
+			promptText = new Text("Press any key to return to menu", FP.halfWidth, FP.halfHeight + lostText.height / 2);
+			
 			lostText.centerOO();
+			promptText.centerOO();
 		}
 		
 		override public function update():void {
@@ -75,10 +82,12 @@ package CursedIdol
 				if (hero.dead){
 					lost = true;				
 					addGraphic(lostText);
+					addGraphic(promptText);
 				}
 			}
 			else {
-				
+				if (Input.pressed(Key.ANY))
+					FP.world = prevWorld;
 			}
 		}
 		

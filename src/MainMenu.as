@@ -76,7 +76,7 @@ package
 						FP.world = new PlantGame();
 						break;
 					case GAME_IDOL:
-						FP.world = new CursedIdolGame();
+						FP.world = new CursedIdolGame(this);
 						break;
 				}
 			}
