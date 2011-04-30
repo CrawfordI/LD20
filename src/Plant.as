@@ -6,7 +6,7 @@ package
 	 * ...
 	 * @author Matthew Dalrymple
 	 */
-	public class  PlantGame extends World
+	public class PlantGame extends World
 	{
 		
 		
