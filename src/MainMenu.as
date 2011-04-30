@@ -19,6 +19,7 @@ package
 		private var cursor:int;
 		
 		private const GAME_PLANT:int = 0;
+		private const GAME_IDOL:int = 1;
 		
 		public function MainMenu() 
 		{
@@ -64,6 +65,9 @@ package
 				switch (cursor) {
 					case GAME_PLANT:
 						FP.world = new PlantGame();
+						break;
+					case GAME_IDOL:
+						FP.world = new CursedIdol();
 						break;
 				}
 			}
