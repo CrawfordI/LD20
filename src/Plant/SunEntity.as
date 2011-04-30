@@ -2,6 +2,7 @@ package Plant
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Spritemap;
+	import net.flashpunk.FP;
 	/**
 	 * ...
 	 * @author Matthew Dalrymple
@@ -9,6 +10,9 @@ package Plant
 	public class SunEntity extends Entity
 	{
 
+		private var dx:int = 2;
+		private var dy:int = 0;
+		
 		[Embed(source = '../../gfx/plant/plant_sun.png')]
 		private const SUN:Class;
 		
@@ -17,7 +21,8 @@ package Plant
 		public function SunEntity() 
 		{
 			sprSun = new Spritemap(SUN, 64, 64);
-			sprSun.add("default", [0, 1, 2, 1], 10, true);
+			y = 20;
+			sprSun.add("default", [0, 1, 2, 1], 12, true);
 			sprSun.play("default");
 			graphic = sprSun;
 
@@ -26,6 +31,15 @@ package Plant
 		override public function update():void 
 		{
 			sprSun.update();
+			
+			x += dx;
+			y += dy;
+			
+			if ( x <= 0 )
+				dx = 2;
+			if ( x + sprSun.width >= FP.width )
+				dx = -2;
+			
 		}
 		
 	}
