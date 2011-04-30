@@ -23,13 +23,15 @@ package CursedIdol
 		private var yVel:Number;
 		private var falling:Boolean;
 		
+		private const craterPad:Number = 8;
+		
 		
 		public function Meteor(iX:Number, iY:Number, xT:Number, yT:Number) 
 		{
 			//this.centerOrigin();
-			falling = true;
+			falling = true;			
 			var scale:Number = .5 + (FP.random * 2);
-			fallStart = FP.rand(180) + 120;
+			fallStart = FP.rand(120) + 80;
 			fallTime = fallStart;
 			shadow = new Image(SHADOW);
 			shadow.alpha = 0;
@@ -59,7 +61,7 @@ package CursedIdol
 					width = crater.scaledWidth;
 					height = crater.scaledHeight;
 					
-					this.setHitbox(crater.scaledWidth, crater.scaledHeight, 0, 0);
+					this.setHitbox(width, height, 0, 0);
 					
 					x -= (width - shadow.scaledWidth) / 2;
 					y -= (height - shadow.scaledHeight) / 2;
@@ -69,6 +71,7 @@ package CursedIdol
 			}
 			else {
 				type = "crater";
+				this.setHitbox(crater.scaledWidth - (craterPad * 4) , crater.scaledHeight - (craterPad * 2), -craterPad * 2, - craterPad);
 			}						
 		}
 	
