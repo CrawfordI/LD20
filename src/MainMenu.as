@@ -7,6 +7,8 @@ package
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	
+	import CursedIdol.CursedIdol;
+	
 	/**
 	 * ...
 	 * @author Pseudokai

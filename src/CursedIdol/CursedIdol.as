@@ -1,4 +1,4 @@
-package  
+package CursedIdol
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.World;
@@ -6,6 +6,7 @@ package
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.graphics.Image;
+	import CursedIdol.LittleHero;
 	
 	/**
 	 * ...
@@ -18,7 +19,7 @@ package
 		
 	public class CursedIdol extends World 
 	{				
-		var hero:LittleHero
+		var hero:LittleHero;
 		public function CursedIdol() 
 		{
 			hero = new LittleHero();

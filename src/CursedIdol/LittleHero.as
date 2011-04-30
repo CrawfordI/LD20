@@ -1,4 +1,4 @@
-package  
+package  CursedIdol
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
@@ -13,7 +13,7 @@ package
 			var xVel:Number;
 			var yVel:Number;
 			
-			[Embed(source = "../gfx/idol/lildude.png")]
+			[Embed(source = "../../gfx/idol/lildude.png")]
 			private const HERO:Class;
 			
 			public function LittleHero() {
