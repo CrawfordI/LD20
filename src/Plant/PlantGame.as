@@ -5,6 +5,7 @@ package Plant
 	import net.flashpunk.graphics.Text;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
+	import net.flashpunk.utils.Draw;
 	/**
 	 * ...
 	 * @author Matthew Dalrymple
@@ -17,6 +18,8 @@ package Plant
 		private var Clouds:Array;
 		private var Cloudiness:int;
 		
+		private var ThePlant:Image;
+		
 		[Embed(source = '../../gfx/Plant/plant_bg.png')]
 		private const BACKGROUND:Class;
 
@@ -26,15 +29,23 @@ package Plant
 			Sun = new SunEntity();
 			Clouds = new Array();
 			
+			
+			ThePlant = Image.createRect( 64, 128 );
+			
+			
 			var gameTitle:Text;
 			Text.size = 20;
 			gameTitle = new Text("PLANT GAME!!!!!!", 640/2, 480/2);
 
 			addGraphic(Background);
 			addGraphic(gameTitle);
+			//addGraphic(ThePlant);
 			add(Sun);
 			
 			Cloudiness = 150;
+			
+			Draw.setTarget(FP.buffer);
+			Draw.curve(30, 35, 40, 60, 30, 90, 5);
 			
 			attemptToAddCloud( FP.rand( 100 ), FP.rand(175) + 50 );
 			attemptToAddCloud( FP.rand( 100 ), FP.rand(175) + 50 );
@@ -89,12 +100,14 @@ package Plant
 		
 		override public function update():void 
 		{
-			Sun.update();
+			super.update();
+			
 			for ( var i:int = 0; i < Clouds.length; i++ ) {
 				if ( Clouds[i] != null )
 					Clouds[i].update();
 			}
-			
+			Draw.setTarget(FP.buffer);
+			Draw.curve(30, 35, 40, 60, 30, 90, 5);
 			cleanUpClouds();
 			attemptToAddCloud();
 			
