@@ -10,6 +10,7 @@ package CursedIdol
 	import net.flashpunk.graphics.Image;
 	import CursedIdol.LittleHero;
 	
+	
 	/**
 	 * ...
 	 * @author Pseudokai
@@ -20,15 +21,13 @@ package CursedIdol
 
 		
 	public class CursedIdolGame extends World 
-	{			
-		[Embed(source = "../../gfx/idol/crater.png")]
-		public const crater:Class;	
+	{					
 		private var hero:LittleHero;
 		public function CursedIdolGame() 
 		{
 			hero = new LittleHero();
 			add(hero);
-			add(new Entity(0, 0, new Image(crater)));
+			add(new Meteor());
 		}
 		
 	}
