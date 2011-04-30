@@ -38,7 +38,7 @@ package CursedIdol
 			mTimer++;
 			if (mTimer > 90 && FP.random < .1) {
 				mTimer = 0;
-				add(new Meteor(hero.x + FP.rand(128) - 64, hero.y + FP.rand(90) - 45));
+				add(new Meteor(hero.x + FP.rand(128) - 64, hero.y + FP.rand(90) - 45, hero.x, hero.y));
 			}
 		}
 		

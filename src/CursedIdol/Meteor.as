@@ -19,11 +19,15 @@ package CursedIdol
 		private var fallStart:int;
 		private var crater:Image;
 		private var shadow:Image;
+		private var xVel:Number;
+		private var yVel:Number;
+		private var falling:Boolean;
 		
-		public function Meteor(iX:Number, iY:Number) 
+		
+		public function Meteor(iX:Number, iY:Number, xT:Number, yT:Number) 
 		{
-			x = iX;
-			y = iY;
+			//this.centerOrigin();
+			falling = true;
 			var scale:Number = .5 + (FP.random * 2);
 			fallStart = FP.rand(180) + 120;
 			fallTime = fallStart;
@@ -33,16 +37,30 @@ package CursedIdol
 			crater = new Image(CRATER);
 			crater.scale = scale;
 			//crater.alpha = 0;
-			graphic = shadow;
+			graphic = shadow;	
+			
+			x = iX - shadow.scaledWidth/2;
+			y = iY - shadow.scaledHeight/2;
+			
+			xVel = (xT - iX) / fallStart;
+			yVel = (yT - iY) / fallStart;
 		}
 		
-		override public function update():void {			
-			if (fallTime > 0){
-				fallTime--;		
-				shadow.alpha = (fallStart - fallTime) / fallStart;
+		override public function update():void {
+			if(falling){
+				if (fallTime > 0){
+					fallTime--;		
+					shadow.alpha = (fallStart - fallTime) / fallStart;
+					x += xVel;
+					y += yVel;
+				}					
+				else {
+					falling = false;
+					graphic = crater;
+					x -= (crater.scaledWidth - shadow.scaledWidth) / 2;
+					y -= (crater.scaledHeight - shadow.scaledHeight) / 2;
+				}
 			}
-			else
-				graphic = crater;
 			
 			
 		}
