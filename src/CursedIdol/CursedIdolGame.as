@@ -2,7 +2,7 @@ package CursedIdol
 {
 	import flash.display.Graphics;
 	import net.flashpunk.Entity;
-	import net.flashpunk.Graphic;
+	import net.flashpunk.utils.Draw;
 	import net.flashpunk.World;
 	import net.flashpunk.FP;
 	import net.flashpunk.utils.Input;
@@ -30,8 +30,7 @@ package CursedIdol
 			hero = new LittleHero();
 			add(hero);
 			mTimer = 0;
-			//add(new Meteor());
-			
+			//add(new Meteor());						
 		}
 		
 		override public function update():void {

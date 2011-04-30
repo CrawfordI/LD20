@@ -24,10 +24,15 @@ package CursedIdol
 		{
 			x = iX;
 			y = iY;
+			var scale:Number = .5 + (FP.random * 2);
 			fallStart = FP.rand(180) + 120;
 			fallTime = fallStart;
 			shadow = new Image(SHADOW);
+			shadow.alpha = 0;
+			shadow.scale = scale;
 			crater = new Image(CRATER);
+			crater.scale = scale;
+			//crater.alpha = 0;
 			graphic = shadow;
 		}
 		
