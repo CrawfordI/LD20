@@ -1,7 +1,6 @@
 package Plant 
 {
 	import net.flashpunk.Entity;
-	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Spritemap;
 	/**
 	 * ...
@@ -13,13 +12,20 @@ package Plant
 		[Embed(source = '../../gfx/plant/plant_sun.png')]
 		private const SUN:Class;
 		
-		private var sprSun:Spritemap = new Spritemap(SUN, 64, 64);
+		public var sprSun:Spritemap;
 	
 		public function SunEntity() 
 		{
-			sprSun.add("default", [0, 1, 2], 20, true);
-			graphic = sprSun;
+			sprSun = new Spritemap(SUN, 64, 64);
+			sprSun.add("default", [0, 1, 2, 1], 10, true);
 			sprSun.play("default");
+			graphic = sprSun;
+
+		}
+		
+		override public function update():void 
+		{
+			sprSun.update();
 		}
 		
 	}

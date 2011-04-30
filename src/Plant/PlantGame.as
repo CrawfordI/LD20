@@ -36,7 +36,7 @@ package Plant
 		
 		override public function update():void 
 		{
-			
+			Sun.update();
 		}	
 	}
 

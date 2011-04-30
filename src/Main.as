@@ -15,7 +15,7 @@ package
 		public function Main():void 
 		{	
 			//maybe?
-			super(640, 480, 60, true);
+			super(640, 480, 60, false);
 			FP.world = new MainMenu();
 		}
 		
