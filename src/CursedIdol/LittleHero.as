@@ -10,8 +10,8 @@ package  CursedIdol
 	 * @author Pseudokai
 	 */
 	public class LittleHero extends Entity {
-			var xVel:Number;
-			var yVel:Number;
+		private var xVel:Number;
+		private	var yVel:Number;
 			
 			[Embed(source = "../../gfx/idol/lildude.png")]
 			private const HERO:Class;

@@ -7,7 +7,8 @@ package
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	
-	import CursedIdol.CursedIdol;
+	import CursedIdol.CursedIdolGame
+	import Plant.PlantGame;
 	
 	/**
 	 * ...
@@ -69,7 +70,7 @@ package
 						FP.world = new PlantGame();
 						break;
 					case GAME_IDOL:
-						FP.world = new CursedIdol();
+						FP.world = new CursedIdolGame();
 						break;
 				}
 			}

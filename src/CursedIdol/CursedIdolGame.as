@@ -17,10 +17,10 @@ package CursedIdol
 	 
 
 		
-	public class CursedIdol extends World 
+	public class CursedIdolGame extends World 
 	{				
-		var hero:LittleHero;
-		public function CursedIdol() 
+		private var hero:LittleHero;
+		public function CursedIdolGame() 
 		{
 			hero = new LittleHero();
 			add(hero);
