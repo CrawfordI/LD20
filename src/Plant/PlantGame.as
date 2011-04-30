@@ -15,6 +15,7 @@ package Plant
 		private var Background:Image;
 		private var BD:Backdrop;
 		private var Sun:SunEntity;
+		private var Cloud:CloudEntity;
 		
 		[Embed(source = '../../gfx/Plant/plant_bg.png')]
 		private const BACKGROUND:Class;
@@ -23,6 +24,7 @@ package Plant
 		{	
 			Background = new Image(BACKGROUND);
 			Sun = new SunEntity();
+			Cloud = new CloudEntity();
 			
 			var gameTitle:Text;
 			Text.size = 20;
@@ -31,12 +33,14 @@ package Plant
 			addGraphic(Background);
 			addGraphic(gameTitle);
 			add(Sun);
+			add(Cloud);
 			
 		}
 		
 		override public function update():void 
 		{
 			Sun.update();
+			Cloud.update();
 		}	
 	}
 
