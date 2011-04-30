@@ -23,7 +23,7 @@ package
 			menuOptions = new Array();
 			menuOrigin = new Point (50, 50);
 			
-			cursor = 0;
+			cursor = 0;			
 			
 			Text.size = 20;
 			gameTitle = new Text("FUCK YEAH!", menuOrigin.x, menuOrigin.y);
