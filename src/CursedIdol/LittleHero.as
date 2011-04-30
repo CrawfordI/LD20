@@ -25,37 +25,49 @@ package  CursedIdol
 			}
 			
 			override public function update():void {
-				if (Input.pressed(Key.UP))
-					yVel = -3;
-				if (Input.pressed(Key.DOWN))
-					yVel = 3;
-				if (Input.pressed(Key.LEFT))
-					xVel = -3;
-				if (Input.pressed(Key.RIGHT))
-					xVel = 3;					
-				if (Input.released(Key.UP) || Input.released(Key.DOWN)){
-					if (Input.check(Key.UP)){
-						yVel = -2;
-					}
-					else if (Input.check(Key.DOWN) ){						
-						yVel = 2;
-					}					
-					else{
-						yVel = 0;
-					}
-				}
-				if (Input.released(Key.LEFT) || Input.released(Key.RIGHT)){
-					if (Input.check(Key.LEFT)){
-						xVel = -2;
-					}
-					else if (Input.check(Key.RIGHT)){
-						xVel = 2;
-					}
-					else{
-						xVel = 0;
-					}
-				}
+				//if (Input.pressed(Key.UP))
+					//yVel = -3;
+				//if (Input.pressed(Key.DOWN))
+					//yVel = 3;
+				//if (Input.pressed(Key.LEFT))
+					//xVel = -3;
+				//if (Input.pressed(Key.RIGHT))
+					//xVel = 3;					
+				//if (Input.released(Key.UP) || Input.released(Key.DOWN)){
+					//if (Input.check(Key.UP)){
+						//yVel = -2;
+					//}
+					//else if (Input.check(Key.DOWN) ){						
+						//yVel = 2;
+					//}					
+					//else{
+						//yVel = 0;
+					//}
+				//}
+				//if (Input.released(Key.LEFT) || Input.released(Key.RIGHT)){
+					//if (Input.check(Key.LEFT)){
+						//xVel = -2;
+					//}
+					//else if (Input.check(Key.RIGHT)){
+						//xVel = 2;
+					//}
+					//else{
+						//xVel = 0;
+					//}
+				//}
 					
+				yVel = 0;
+				if (Input.check(Key.UP))
+					yVel -= 2;
+				if (Input.check(Key.DOWN))
+					yVel += 2;
+				xVel = 0;
+				if (Input.check(Key.LEFT))
+					xVel -= 2;
+				if (Input.check(Key.RIGHT))
+					xVel += 2;
+					
+				
 				x += xVel;
 				y += yVel;
 					
