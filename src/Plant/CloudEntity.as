@@ -46,6 +46,15 @@ package Plant
 		{
 			sprCloud.update();
 			
+			if ( y > dest.y )
+				dy = -1 * dy;
+			else if ( dy < 0 )
+				dy = -1 * dy;
+			if ( x > dest.x )
+				dx = -1 * dx;
+			else if ( dy < 0 )
+				dx = -1 * dx;
+			
 			var r:int = FP.rand(3) + 1;
 			switch (r) {
 				case 1:
