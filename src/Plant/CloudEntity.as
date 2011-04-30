@@ -79,7 +79,7 @@ package Plant
 			} else if (!Input.mouseDown) {
 				// Not holding mouse down anymore
 				selected = false;
-			} else if (Input.mousePressed) {
+			} else if (Input.mousePressed  && collidePoint(x, y, Input.mouseX, Input.mouseY)  ) {
 				// The mouse button was just pressed this frame.
 				selected = true;
 			}
