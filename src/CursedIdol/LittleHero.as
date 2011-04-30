@@ -33,10 +33,28 @@ package  CursedIdol
 					xVel = -3;
 				if (Input.pressed(Key.RIGHT))
 					xVel = 3;					
-				if (Input.released(Key.UP) || Input.released(Key.DOWN))
-					yVel = 0;
-				if (Input.released(Key.LEFT) || Input.released(Key.RIGHT))
-					xVel = 0;
+				if (Input.released(Key.UP) || Input.released(Key.DOWN)){
+					if (Input.check(Key.UP)){
+						yVel = -2;
+					}
+					else if (Input.check(Key.DOWN) ){						
+						yVel = 2;
+					}					
+					else{
+						yVel = 0;
+					}
+				}
+				if (Input.released(Key.LEFT) || Input.released(Key.RIGHT)){
+					if (Input.check(Key.LEFT)){
+						xVel = -2;
+					}
+					else if (Input.check(Key.RIGHT)){
+						xVel = 2;
+					}
+					else{
+						xVel = 0;
+					}
+				}
 					
 				x += xVel;
 				y += yVel;
