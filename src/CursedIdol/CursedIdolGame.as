@@ -25,12 +25,19 @@ package CursedIdol
 		private var hero:LittleHero;
 		private var mTimer:int;
 		
+		[Embed(source = "../../gfx/idol/grass.png")]
+		public const GRASS:Class;
+		
 		public function CursedIdolGame() 		
-		{
-			hero = new LittleHero();
-			add(hero);
+		{			
+			
+			
 			mTimer = 0;
-			//add(new Meteor());						
+			
+			addGraphic(new Image(GRASS));
+			//add(new Meteor());		
+			hero = new LittleHero();	
+			add(hero);			
 		}
 		
 		override public function update():void {
@@ -39,7 +46,8 @@ package CursedIdol
 			if (mTimer > 90 && FP.random < .1) {
 				mTimer = 0;
 				add(new Meteor(hero.x + FP.rand(128) - 64, hero.y + FP.rand(90) - 45, hero.x, hero.y));
-			}
+			}			
+			bringToFront(hero);
 		}
 		
 	}

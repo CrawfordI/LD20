@@ -17,10 +17,11 @@ package  CursedIdol
 			private const HERO:Class;
 			
 			public function LittleHero() {
-					super(FP.width / 2, FP.height / 2, new Image(HERO));
+					var heroImage:Image = new Image(HERO);					
+					super(FP.width / 2, FP.height / 2, heroImage);
 					xVel = 0;
 					yVel = 0;
-					//graphic = new Image(HERO);					
+					setHitbox(heroImage.width, heroImage.height);
 			}
 			
 			override public function update():void {
@@ -40,6 +41,11 @@ package  CursedIdol
 				x += xVel;
 				y += yVel;
 					
+				
+				if (collide("impact", x, y))
+				{
+					trace("I is dead");
+				}
 			}
 		}
 

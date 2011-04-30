@@ -17,6 +17,7 @@ package
 			//maybe?
 			super(640, 480, 60, false);
 			FP.world = new MainMenu();
+			FP.console.enable();
 		}
 		
 		override public function init():void {

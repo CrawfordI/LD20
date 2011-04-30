@@ -36,11 +36,10 @@ package CursedIdol
 			shadow.scale = scale;
 			crater = new Image(CRATER);
 			crater.scale = scale;
-			//crater.alpha = 0;
 			graphic = shadow;	
 			
 			x = iX - shadow.scaledWidth/2;
-			y = iY - shadow.scaledHeight/2;
+			y = iY - shadow.scaledHeight / 2;								
 			
 			xVel = (xT - iX) / fallStart;
 			yVel = (yT - iY) / fallStart;
@@ -57,12 +56,20 @@ package CursedIdol
 				else {
 					falling = false;
 					graphic = crater;
-					x -= (crater.scaledWidth - shadow.scaledWidth) / 2;
-					y -= (crater.scaledHeight - shadow.scaledHeight) / 2;
+					width = crater.scaledWidth;
+					height = crater.scaledHeight;
+					
+					this.setHitbox(crater.scaledWidth, crater.scaledHeight, 0, 0);
+					
+					x -= (width - shadow.scaledWidth) / 2;
+					y -= (height - shadow.scaledHeight) / 2;
+					type = "impact";
+
 				}
 			}
-			
-			
+			else {
+				type = "";
+			}						
 		}
 	
 	}
