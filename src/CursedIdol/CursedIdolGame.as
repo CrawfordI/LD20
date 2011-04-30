@@ -23,11 +23,24 @@ package CursedIdol
 	public class CursedIdolGame extends World 
 	{					
 		private var hero:LittleHero;
-		public function CursedIdolGame() 
+		private var mTimer:int;
+		
+		public function CursedIdolGame() 		
 		{
 			hero = new LittleHero();
 			add(hero);
-			add(new Meteor());
+			mTimer = 0;
+			//add(new Meteor());
+			
+		}
+		
+		override public function update():void {
+			super.update();
+			mTimer++;
+			if (mTimer > 90 && FP.random < .1) {
+				mTimer = 0;
+				add(new Meteor(hero.x + FP.rand(128) - 64, hero.y + FP.rand(90) - 45));
+			}
 		}
 		
 	}

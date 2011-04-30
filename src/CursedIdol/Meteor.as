@@ -20,8 +20,10 @@ package CursedIdol
 		private var crater:Image;
 		private var shadow:Image;
 		
-		public function Meteor() 
+		public function Meteor(iX:Number, iY:Number) 
 		{
+			x = iX;
+			y = iY;
 			fallStart = FP.rand(180) + 120;
 			fallTime = fallStart;
 			shadow = new Image(SHADOW);
