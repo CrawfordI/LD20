@@ -18,6 +18,8 @@ package
 		private var menuOrigin:Point;
 		private var cursor:int;
 		
+		private const GAME_PLANT:int = 0;
+		
 		public function MainMenu() 
 		{
 			menuOptions = new Array();
@@ -56,6 +58,14 @@ package
 					menuOptions[i].color = 0xFF6103;
 				else
 					menuOptions[i].color = 0xFFFFFF;
+			}
+			
+			if (Input.pressed(Key.ENTER)) {
+				switch (cursor) {
+					case GAME_PLANT:
+						FP.world = new PlantGame();
+						break;
+				}
 			}
 		}
 		
