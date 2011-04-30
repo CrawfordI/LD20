@@ -2,26 +2,24 @@ package
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import net.flashpunk.Engine;
 	
 	/**
 	 * ...
 	 * @author Pseudokai
 	 */
-	public class Main extends Sprite 
+	public class Main extends Engine 
 	{
 		
 		public function Main():void 
-		{
-			if (stage) init();
-			else addEventListener(Event.ADDED_TO_STAGE, init);
+		{	
+			//maybe?
+			super(640, 480, 60, true);
 		}
 		
-		private function init(e:Event = null):void 
-		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			// entry point
+		override public function init():void {
+			trace("fecal matter");
 		}
-		
 	}
 	
 }
