@@ -28,7 +28,7 @@ package
 			Text.size = 20;
 			gameTitle = new Text("FUCK YEAH!", menuOrigin.x, menuOrigin.y);
 			Text.size = 12;
-			for (var i = 0; i < 5; i++) {
+			for (var i:int = 0; i < 5; i++) {
 				var opt:Text = new Text("Option " + i, menuOrigin.x, menuOrigin.y +(20 * (i + 1)));
 				menuOptions.push(opt);
 				addGraphic(menuOptions[i]);
@@ -51,7 +51,7 @@ package
 					cursor = menuOptions.length - 1;
 			}
 			
-			for (var i = 0; i < menuOptions.length; i++) {
+			for (var i:int = 0; i < menuOptions.length; i++) {
 				if (cursor == i)
 					menuOptions[i].color = 0xFF6103;
 				else
