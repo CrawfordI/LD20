@@ -14,6 +14,7 @@ package Plant
 		
 		private var Background:Image;
 		private var BD:Backdrop;
+		private var Sun:SunEntity;
 		
 		[Embed(source = '../../gfx/Plant/plant_bg.png')]
 		private const BACKGROUND:Class;
@@ -21,13 +22,15 @@ package Plant
 		public function PlantGame() 
 		{	
 			Background = new Image(BACKGROUND);
-		//	BD = new Backdrop(Background, false, false);
+			Sun = new SunEntity();
+			
 			var gameTitle:Text;
 			Text.size = 20;
-			gameTitle = new Text("PLANT GAME!!!!!!", 100, 100);
+			gameTitle = new Text("PLANT GAME!!!!!!", 640/2, 480/2);
 
 			addGraphic(Background);
 			addGraphic(gameTitle);
+			add(Sun);
 			
 		}
 		
