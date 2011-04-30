@@ -18,6 +18,7 @@ package Plant
 		private var Clouds:Array;
 		private var Cloudiness:Number;
 		private var deltaCloudiness:Number;
+		private var Beam:SunBeamEntity = null;
 		
 		private var ThePlant:PlantEntity;
 		
@@ -100,8 +101,28 @@ package Plant
 			super.update();
 			
 			if ( Sun.wasSelected() ) {
-				//add( 
+				if ( Beam == null ) {
+					Beam = new SunBeamEntity(Sun.centerX, Sun.centerY);
+					Beam.setMaxDepth( FP.height - FP.rand( 150 ) );
+					add(Beam);
+				}
 			}
+			
+			if ( Beam != null ) {
+				var destroy:Boolean = false;
+				
+				if ( Beam.collide("plant", Beam.x, Beam.y) || Beam.collide("cloud", Beam.x, Beam.y) ) {
+					destroy = true;
+				} else if ( Beam.atMaxDepth() ) {
+					destroy = true;
+				}
+				
+				if ( destroy ) {
+					Beam.destroy();
+					Beam = null;
+				}
+			}
+			
 			//for ( var i:int = 0; i < Clouds.length; i++ ) {
 			//	if ( Clouds[i] != null )
 			//		Clouds[i].update();

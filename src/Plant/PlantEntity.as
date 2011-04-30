@@ -32,6 +32,8 @@ package Plant
 			y = 300 - sprPlant.scaledHeight / 2;
 			//sprPlant.color = 0xAAAABB;  // looks like its wilting
 			//sprPlant.color = 0xAAAAAA;  // wilting less
+			setHitbox( sprPlant.scaledWidth, sprPlant.scaledHeight / 2, 0, -20 );
+			type = "plant";
 		}
 		
 		

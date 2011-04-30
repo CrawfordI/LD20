@@ -46,7 +46,7 @@ package Plant
 			height = sprCloud.scaledHeight;
 			
 			setHitbox(width, height);
-
+			type = "cloud";
 		}
 		
 		public function isOffScreen():Boolean
