@@ -16,9 +16,10 @@ package Plant
 		private var Background:Image;
 		private var Sun:SunEntity;
 		private var Clouds:Array;
-		private var Cloudiness:int;
+		private var Cloudiness:Number;
+		private var deltaCloudiness:Number;
 		
-		private var ThePlant:Image;
+		private var ThePlant:PlantEntity;
 		
 		[Embed(source = '../../gfx/Plant/plant_bg.png')]
 		private const BACKGROUND:Class;
@@ -28,9 +29,7 @@ package Plant
 			Background = new Image(BACKGROUND);
 			Sun = new SunEntity();
 			Clouds = new Array();
-			
-			
-			ThePlant = Image.createRect( 64, 128 );
+			ThePlant = new PlantEntity();
 			
 			
 			var gameTitle:Text;
@@ -39,13 +38,11 @@ package Plant
 
 			addGraphic(Background);
 			addGraphic(gameTitle);
-			//addGraphic(ThePlant);
 			add(Sun);
+			add(ThePlant);
 			
-			Cloudiness = 150;
-			
-			Draw.setTarget(FP.buffer);
-			Draw.curve(30, 35, 40, 60, 30, 90, 5);
+			//Cloudiness = 150;
+			Cloudiness = 500;
 			
 			attemptToAddCloud( FP.rand( 100 ), FP.rand(175) + 50 );
 			attemptToAddCloud( FP.rand( 100 ), FP.rand(175) + 50 );
@@ -102,12 +99,14 @@ package Plant
 		{
 			super.update();
 			
-			for ( var i:int = 0; i < Clouds.length; i++ ) {
-				if ( Clouds[i] != null )
-					Clouds[i].update();
+			if ( Sun.wasSelected() ) {
+				//add( 
 			}
-			Draw.setTarget(FP.buffer);
-			Draw.curve(30, 35, 40, 60, 30, 90, 5);
+			//for ( var i:int = 0; i < Clouds.length; i++ ) {
+			//	if ( Clouds[i] != null )
+			//		Clouds[i].update();
+			//}
+
 			cleanUpClouds();
 			attemptToAddCloud();
 			

@@ -4,9 +4,7 @@ package Plant
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.FP;
 	import flash.geom.Point;
-	import net.flashpunk.tweens.motion.QuadPath;
-	import net.flashpunk.Tween;
-	
+	import net.flashpunk.utils.Input;
 	
 	
 	/**
@@ -17,32 +15,19 @@ package Plant
 	{
 		[Embed(source = '../../gfx/plant/plant_cloud.png')]
 		private const CLOUD:Class;
-		
-		private var dest:Point;
-		
+
 		private var dx:Number = 1;
 		private var dy:Number = 1;
-		
-		private var path:QuadPath;
+		private var selected:Boolean;
 		
 		public var sprCloud:Spritemap;
 		
 		public function CloudEntity( start_x:int = 0, start_y:int = 0 )
 		{
-		/*	path = new QuadPath(null, Tween.LOOPING);
-			path.addPoint(x, y);
-			path.addPoint(FP.rand( FP.width ), FP.rand( 150 ));
-			path.addPoint(FP.rand( FP.width ), FP.rand( 150 ));
-			path.addPoint(FP.rand( FP.width ), FP.rand( 150 ));
-			path.addPoint(FP.rand( FP.width ), FP.rand( 150 ));
-			path.setMotion(100, null);
-			path.start();*/
-			
-			//dest = new Point (50, 50);
 			sprCloud = new Spritemap(CLOUD, 75, 50);
 			sprCloud.add("default", [0], 1, true);
 			sprCloud.play("default");
-			
+			graphic = sprCloud;
 			
 			x = 0 - sprCloud.width;
 			y = FP.rand( 200 );
@@ -54,8 +39,13 @@ package Plant
 			
 			dx = (0.25) * FP.rand( 2 ) + 0.25;
 			
+			sprCloud.scale = 1 + dx;
 			
-			graphic = sprCloud;
+			
+			width = sprCloud.scaledWidth;
+			height = sprCloud.scaledHeight;
+			
+			setHitbox(width, height);
 
 		}
 		
@@ -79,6 +69,20 @@ package Plant
 			x += dx;
 			
 			sprCloud.update();
+			
+			if ( Input.mouseReleased ) {
+				// Did the user press and release on this entity?
+				if ( selected && collidePoint(x, y, Input.mouseX, Input.mouseY)  ) {
+					trace("PRESSED AND RELEASED ON A CLOUD!");
+				}
+				selected = false;
+			} else if (!Input.mouseDown) {
+				// Not holding mouse down anymore
+				selected = false;
+			} else if (Input.mousePressed) {
+				// The mouse button was just pressed this frame.
+				selected = true;
+			}
 			
 		}
 		
