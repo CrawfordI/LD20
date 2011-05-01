@@ -56,7 +56,6 @@ package Plant
 		
 		public function PlantGame() 
 		{	
-			//Background = new Image(BACKGROUND);
 			Background = new Spritemap(BACKGROUND, 640, 480);
 			Sun = new SunEntity();
 			Clouds = new Array();
@@ -75,15 +74,12 @@ package Plant
 			IntroEntity = addGraphic(IntroMessage);
 			
 			Cloudiness = 150;
-			//Cloudiness = 500;
 
 		}
 		
 		private function init( plantX:Number, plantY:Number ):void {
 			
 			ThePlant = new PlantEntity( plantX, plantY );
-			//ThePlant.x = plantX;
-			//ThePlant.y = plantY;
 			
 			add(Sun);
 			add(ThePlant);
@@ -185,6 +181,7 @@ package Plant
 					if ( Cloudiness > MAX_CLOUDINESS || Cloudiness <= 0 )
 						deltaCloudiness = deltaCloudiness * -1;
 					
+					SeedImage.color = ThePlant.plantColor();
 					
 					break;
 				case STATE_OVER:
