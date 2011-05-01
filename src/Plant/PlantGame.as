@@ -217,7 +217,10 @@ package Plant
 			} else {
 				// Calculate Final Plant Score AND TIME BONUS
 				Score += (((ThePlant.plantSize() / 100) + 1) * ThePlant.getHealth()) / 120;
-				Score += 50000 - Count;
+				Score += 75000 - Count;
+				trace(" COUNT WAS: " + Count );
+				if ( Score < 0 )
+					Score = 0;
 			}
 		}
 		
