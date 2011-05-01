@@ -48,7 +48,7 @@ package  CursedIdol
 					xVel = 0;
 					yVel = 0;
 					Left = Right = Up = Down = 0;
-					setHitbox(heroImage.width, heroImage.height);
+					setHitbox(heroImage.width, heroImage.height/4,0,-heroImage.height* (3.0/4));
 			}
 			
 			override public function update():void {
@@ -84,7 +84,7 @@ package  CursedIdol
 					}
 					
 					if (collide("crater", x, y)){
-						speed = .3;
+						speed = .6;
 						walk.stop();
 						cwalk = mwalk;
 					}
