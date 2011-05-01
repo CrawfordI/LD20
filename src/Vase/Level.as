@@ -19,7 +19,8 @@ package Vase
 		[Embed(source = "../../gfx/vase/bgtiles.png")] public const TILES:Class;
 		[Embed(source = "../../gfx/vase/ladder.png")] public const OBJECTS:Class;
 		
-		public function Level(xml:Class) 
+		public var xmlSrc:Class;
+		public function Level(xml:Class)
 		{
 				_tiles = new Tilemap(TILES, 640, 480, 32, 32);
 				_objects = new Tilemap(OBJECTS, 640, 480, 32, 32);
@@ -32,11 +33,14 @@ package Vase
 				mask = _grid;
 				
 				type = "Solid";
-				
-				loadLevel(xml);
+				xmlSrc = xml;
 		}
 		
-		private function loadLevel(xml:Class):void
+		public function getLevelData():XML {
+			return loadLevel(xmlSrc);
+		}
+		
+		private function loadLevel(xml:Class):XML
 		{
 			var data:ByteArray = new xml;
 			var dataString:String = data.readUTFBytes( data.length );
@@ -45,13 +49,16 @@ package Vase
 			var dataList:XMLList;
 			var dataElement:XML;
 			
-			dataList = LevelData.foreGround.tile;
+			var o:XML;
+			
+			dataList = LevelData.solid.tile;
 			for each(dataElement in dataList)
 			{
 				_tiles.setTile(int(dataElement.@x) >> 5, int(dataElement.@y) >> 5, int(dataElement.@tx) >> 5);
 				_grid.setTile(int(dataElement.@x) >> 5, int(dataElement.@y) >> 5, ((int(dataElement.@tx) >> 5) == 2));
 			}
 			
+			return LevelData;
 		}
 	}
 

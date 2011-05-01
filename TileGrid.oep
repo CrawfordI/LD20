@@ -8,10 +8,12 @@
 	
 	<tilesets>
 		<tileset name="tiles" image="gfx/vase/bgtiles.png" tileHeight="32" tileWidth="32" />
+		<tileset name="fgtiles" image="gfx/vase/fggrass.png" tileHeight="32" tileWidth="32" />
 	</tilesets>
 	
 	<layers>
 		<tiles name="backGround" gridSize = "32" />
+		<tiles name="solid" gridSize = "32" />
 		<tiles name="foreGround" gridSize = "32" />
 		<objects name = "objects" gridSize = "32" />
 	</layers>
