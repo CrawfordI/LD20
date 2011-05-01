@@ -46,14 +46,16 @@ package Vase
 			var movement:Point = new Point;
 			
 			vx = (Input.check(Key.RIGHT) ? 1 : 0) - (Input.check(Key.LEFT) ? 1 : 0);
-			vy = (Input.check(Key.DOWN) ? 1 : 0) - (Input.check(Key.UP) ? 1 : 0);
+			//vy = (Input.check(Key.DOWN) ? 1 : 0) - (Input.check(Key.UP) ? 1 : 0);
 			
-			if (Input.check(Key.UP) && Math.abs(vel.y) < .05) {
+			if (Input.check(Key.UP) && jumping == false) {
 				vel.y = -6;
+				jumping = true
 			}
 			vel.x = vx * speed;
-			vel.y = vy * speed;
-			vel.y += accel * FP.elapsed * FP.elapsed;
+			//vel.y = vy * speed;
+			if (jumping)
+				vel.y += accel * FP.elapsed * FP.elapsed;
 		}
 		
 		private function updateCollision():void 
@@ -62,20 +64,22 @@ package Vase
 			if (collide("level", x, y)) {
 				if (vel.y > 0) {
 					vel.y = 0;
-					y = (Math.floor(y << 5 ) >> 5) + 32 - height;
+					jumping = false;
+					y = (Math.floor(y << 5 ) >> 5);
 					
 				} else if (vel.y < 0) {
 					vel.y = 0;
-					y = (Math.floor(y << 5 ) >> 5) + 32;
+					y = (Math.floor(y << 5 ) >> 5) + 16;
 				}
-				y -= accel * FP.elapsed * FP.elapsed;
+				if (jumping)
+					y -= accel * FP.elapsed * FP.elapsed;
 			}
 			
 			x += vel.x;
 			if (collide("level", x, y)) {
 				if (vel.x > 0) {
 					vel.x = 0;
-					x = (Math.floor(x >> 5) << 5) + 32 -width;
+					x = (Math.floor(x >> 5) << 5) + 32 - width;
 				} else if (vel.x < 0) {
 					vel.x = 0;
 					x = (Math.floor(x >> 5) << 5) + 32;
