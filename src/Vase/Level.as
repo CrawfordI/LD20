@@ -12,14 +12,19 @@ package Vase
 	public class Level extends Entity
 	{
 		private var _tiles:Tilemap;
+		private var _objects:Tilemap;
 		private var _grid:Grid;
 		public var LevelData:XML;
 		
-		[Embed(source = "../../gfx/vase/bgtiles.png")]
-		public const TILES:Class;
+		[Embed(source = "../../gfx/vase/bgtiles.png")] public const TILES:Class;
+		[Embed(source = "../../gfx/vase/ladder.png")] public const OBJECTS:Class;
+		
 		public function Level(xml:Class) 
 		{
 				_tiles = new Tilemap(TILES, 640, 480, 32, 32);
+				_objects = new Tilemap(OBJECTS, 640, 480, 32, 32);
+				//addGraphic(_tiles);
+				//addGraphic(_objects);
 				graphic = _tiles;
 				layer = 1;
 				
@@ -40,13 +45,13 @@ package Vase
 			var dataList:XMLList;
 			var dataElement:XML;
 			
-			dataList = LevelData.bgtiles.tile;
+			dataList = LevelData.foreGround.tile;
 			for each(dataElement in dataList)
 			{
 				_tiles.setTile(int(dataElement.@x) >> 5, int(dataElement.@y) >> 5, int(dataElement.@tx) >> 5);
-				_grid.setTile(int(dataElement.@x) >> 5, int(dataElement.@y) >> 5, ((int(dataElement.@x) >> 5) == 0));
+				_grid.setTile(int(dataElement.@x) >> 5, int(dataElement.@y) >> 5, ((int(dataElement.@tx) >> 5) == 2));
 			}
-			//trace(xmlData);
+			
 		}
 	}
 

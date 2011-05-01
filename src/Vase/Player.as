@@ -16,6 +16,11 @@ package Vase
 	{
 		private var vel:Point;
 		private var speed:int;
+		private var accel:Number;
+		private var vy:int;
+		private	var vx:int;
+		private var jumping:Boolean;
+		
 		[Embed(source = "../../gfx/vase/maindude.png")] public const GUY:Class;
 		public function Player(loc:Point) 
 		{
@@ -23,6 +28,7 @@ package Vase
 			y = loc.y;
 			vel = new Point;
 			speed = 2;
+			accel = 3;
 			var guyImage:Image = new Image(GUY);		
 			super(FP.width / 2, FP.height / 2, guyImage);
 			setHitbox(guyImage.width, guyImage.height);
@@ -38,22 +44,40 @@ package Vase
 		private function updateMovement():void
 		{
 			var movement:Point = new Point;
-			var vy:int;
-			var vx:int;
-			vy = (Input.check(Key.DOWN) ? 1 : 0) - (Input.check(Key.UP) ? 1 : 0);
-			vx = (Input.check(Key.RIGHT)? 1 : 0) - (Input.check(Key.LEFT)?1 : 0);
+			
+			vx = (Input.check(Key.RIGHT) ? 1 : 0) - (Input.check(Key.LEFT) ? 1 : 0);
+			if (Input.check(Key.UP) && Math.abs(vel.y) < 1) {
+				vel.y = -6;
+			}
 			vel.x = vx * speed;
-			vel.y = vy * speed;
+			vel.y += accel * FP.elapsed * FP.elapsed;
 		}
 		
 		private function updateCollision():void 
 		{
-			x += vel.x;
-			y += vel.y;
-			
+			y += vel.y;		
 			if (collide("level", x, y)) {
+				if (vel.y > 0) {
+					vel.y = 0;
+					y = Math.floor(y >> 5) << 5 + 32 - height;
+				} else if (vel.y < 0) {
+					vel.y = 0;
+					y = Math.floor(y >> 5) << 5 + 32;
+				}
+				vel.y -= accel * FP.elapsed * FP.elapsed;
+			}
+			x += vel.x;
+			if (collide("level", x, y)) {
+				if (vel.x > 0) {
+					vel.x = 0;
+					x = Math.floor(x >> 5) << 5 + 32 -width;
+				} else if (vel.x < 0) {
+					vel.x = 0;
+					x = Math.floor(x >> 5) << 5 + 32;
+				}
 				
 			}
+			
 		}
 		
 	}
