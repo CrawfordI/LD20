@@ -20,6 +20,9 @@ package  CursedIdol
 		private var speed:Number;
 		public var dead:Boolean;
 		private var walk:Sfx;
+		private var mwalk:Sfx;
+		private var cwalk:Sfx;
+		
 			
 			[Embed(source = "../../gfx/idol/lildude.png")]
 			private const HERO:Class;
@@ -27,12 +30,17 @@ package  CursedIdol
 			[Embed(source = "../../sfx/idol/idol_walking.mp3")]
 			private const WALK:Class;
 			
+			[Embed(source = "../../sfx/idol/idol_mudwalk.mp3")]
+			private const MWALK:Class;
+			
 			public function LittleHero() {
 					var heroImage:Image = new Image(HERO);					
 					super(FP.width / 2, FP.height / 2, heroImage);
 					
 					walk = new Sfx(WALK);
-					//walk.loop();
+					mwalk = new Sfx(MWALK);
+					
+					cwalk = walk;
 					
 					dead = false;
 					
@@ -63,9 +71,9 @@ package  CursedIdol
 					y += step * (Up + Down);
 					
 					if ((!Input.check(Key.UP) && !Input.check(Key.DOWN) && !Input.check(Key.LEFT) && !Input.check(Key.RIGHT)))
-						walk.stop();
-					else if( !walk.playing )
-						walk.loop();
+						cwalk.stop();
+					else if( !cwalk.playing )
+						cwalk.loop();
 					
 					clampHorizontal(0, FP.width, 4);
 					clampVertical(0, FP.height, 4);
@@ -75,9 +83,19 @@ package  CursedIdol
 						dead = true;
 					}
 					
-					if (collide("crater", x, y))
+					if (collide("crater", x, y)){
 						speed = .3;
-						else speed = 2;
+						walk.stop();
+						cwalk = mwalk;
+					}
+					else {
+						speed = 2;
+						mwalk.stop();
+						cwalk = walk;
+					}
+				}
+				else {
+					cwalk.stop();
 				}
 			}
 		}
