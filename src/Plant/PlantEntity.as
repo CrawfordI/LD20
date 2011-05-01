@@ -3,6 +3,7 @@ package Plant
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.FP;
+	import net.flashpunk.Sfx;
 	/**
 	 * ...
 	 * @author Matthew Dalrymple
@@ -13,7 +14,17 @@ package Plant
 		[Embed(source = '../../gfx/plant/plant_plant.png')]
 		private const PLANT:Class;
 		
+		[Embed(source = '../../sfx/plant/plant_grow.mp3')]
+		private const SFX_GROW:Class;
+		
+		[Embed(source = '../../sfx/plant/plant_hit.mp3')]
+		private const SFX_HIT:Class;
+		
 		public var sprPlant:Spritemap;
+		public var sfxHit:Sfx;
+		public var sfxGrow:Sfx;
+		
+		
 		private var healthiness:Number = 100;
 		private var water:Number = 0;
 		private var energy:Number = 0;
@@ -26,6 +37,8 @@ package Plant
 		
 		public function PlantEntity( startX:Number, startY:Number )
 		{	
+			sfxHit = new Sfx(SFX_HIT);
+			sfxGrow = new Sfx(SFX_GROW);
 			sprPlant = new Spritemap(PLANT, 64, 128);
 			sprPlant.add("default", [0, 1, 2, 1], 12, true);
 			sprPlant.play("default");
@@ -45,11 +58,13 @@ package Plant
 		
 		public function addWater( amount:Number ):void {
 			water += amount;
+			sfxHit.play();
 			//trace("WATER ADDED: " + amount);
 		}
 		
 		public function addEnergy( amount:Number ):void {
 			energy += amount;
+			sfxHit.play();
 		//	trace("ENERGY ADDED: " + amount);
 		}
 		
@@ -77,6 +92,7 @@ package Plant
 					x = sX - sprPlant.scaledWidth / 2;
 					y = sY - sprPlant.scaledHeight / 2 - (70 * sprPlant.scale);
 					setHitbox( sprPlant.scaledWidth, sprPlant.scaledHeight );
+					sfxGrow.play();
 			//		trace("SCALE IS NOW: " + sprPlant.scale);
 				} else {
 					healthiness += FP.rand( 30 ) + 1;

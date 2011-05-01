@@ -69,8 +69,13 @@ package Plant
 		[Embed(source = '../../sfx/plant/plant_sunspent.mp3')]
 		private const SFX_SUNSPENT:Class;
 		
+		[Embed(source = '../../bgm/plant_bgm.mp3')]
+		private const BGM:Class;
+		
+		
 		private var sfxZap:Sfx;
 		private var sfxSunSpent:Sfx;
+		private var sfxBGM:Sfx;
 		
 		private var SeedDropping:Boolean = false;
 		
@@ -93,6 +98,8 @@ package Plant
 			GameOverImage = new Image(GAMEOVER);
 			sfxZap = new Sfx(SFX_ZAP);
 			sfxSunSpent = new Sfx(SFX_SUNSPENT);
+			sfxBGM = new Sfx(BGM);
+			sfxBGM.loop();
 			
 			Background.add("default", [0, 1, 2, 1], 8, true);
 
@@ -258,7 +265,7 @@ package Plant
 						
 					} else if ( Input.pressed(Key.ANY) ) {
 						// GO HOME
-	
+						sfxBGM.stop();
 						FP.world = PreviousWorld;
 					}
 
