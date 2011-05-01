@@ -83,14 +83,14 @@ package CursedIdol
 				mTimer++;
 				mTimer2++;
 				if (mTimer > 90 && FP.random < .1) {
-					var m:Meteor = new Meteor(hero.x + FP.rand(128) - 64, hero.y + FP.rand(90) - 45, hero.x, hero.y);
+					var mt:Meteor = new Meteor(hero.x + FP.rand(128) - 64, hero.y + FP.rand(90) - 45, hero.x, hero.y);
 					mTimer = 0 + offset;
 					offset++;
 					add(m);
 					mFringe.push(m);
 				}			
 				if (mTimer2 > 90) {
-					var m:Meteor = new Meteor(FP.rand(FP.width), FP.rand(FP.height), FP.rand(FP.width), FP.rand(FP.height));
+					var mt2:Meteor = new Meteor(FP.rand(FP.width), FP.rand(FP.height), FP.rand(FP.width), FP.rand(FP.height));
 					mTimer2 = 0;				
 					add(m);
 					mFringe.push(m);
