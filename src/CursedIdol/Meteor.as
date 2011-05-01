@@ -3,6 +3,7 @@ package CursedIdol
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.Sfx;
 	
 	/**
 	 * ...
@@ -14,6 +15,8 @@ package CursedIdol
 		public const CRATER:Class;
 		[Embed(source = "../../gfx/idol/shadow.png")]
 		public const SHADOW:Class;
+		[Embed(source = "../../sfx/idol/idol_crash.mp3")]
+		public const CRASH:Class;
 		
 		private var fallTime:int;
 		private var fallStart:int;
@@ -67,6 +70,9 @@ package CursedIdol
 					x -= (width - shadow.scaledWidth) / 2;
 					y -= (height - shadow.scaledHeight) / 2;
 					type = "impact";
+					
+					var crash:Sfx = new Sfx(CRASH);
+					crash.play();
 
 				}
 			}

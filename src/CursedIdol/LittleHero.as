@@ -2,6 +2,7 @@ package  CursedIdol
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
+	import net.flashpunk.Sfx;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.graphics.Image;
@@ -18,13 +19,20 @@ package  CursedIdol
 		private var Down:Number;
 		private var speed:Number;
 		public var dead:Boolean;
+		private var walk:Sfx;
 			
 			[Embed(source = "../../gfx/idol/lildude.png")]
 			private const HERO:Class;
 			
+			[Embed(source = "../../sfx/idol/idol_walking.mp3")]
+			private const WALK:Class;
+			
 			public function LittleHero() {
 					var heroImage:Image = new Image(HERO);					
 					super(FP.width / 2, FP.height / 2, heroImage);
+					
+					walk = new Sfx(WALK);
+					walk.loop();
 					
 					dead = false;
 					
@@ -53,6 +61,11 @@ package  CursedIdol
 						step = 0.7;
 					x += step * (Left + Right);
 					y += step * (Up + Down);
+					
+					if ((Input.check(Key.UP) || Input.check(Key.DOWN) || Input.check(Key.LEFT) || Input.check(Key.RIGHT)) && walk.playing)
+						walk.play();
+					else
+						walk.stop();
 					
 					clampHorizontal(0, FP.width, 4);
 					clampVertical(0, FP.height, 4);
