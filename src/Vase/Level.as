@@ -31,7 +31,7 @@ package Vase
 				_grid = new Grid(640, 480, 32, 32, 0, 0);
 				mask = _grid;
 				
-				type = "level";
+				type = "Solid";
 				
 				loadLevel(xml);
 		}

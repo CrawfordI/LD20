@@ -12,79 +12,89 @@ package Vase
 	 * ...
 	 * @author ...
 	 */
-	public class Player extends Entity
+	public class Player extends MovableObject
 	{
-		private var vel:Point;
-		private var speed:int;
-		private var accel:Number;
-		private var vy:int;
-		private	var vx:int;
-		private var jumping:Boolean;
+	
+		private var onGround:Boolean;
+		private var direction:Boolean;
+		public var movement:Number = 1;
+		public var jump:Number = 5;
 		
 		[Embed(source = "../../gfx/vase/maindude.png")] public const GUY:Class;
 		public function Player(loc:Point) 
 		{
 			x = loc.x;
 			y = loc.y;
-			vel = new Point;
-			speed = 2;
-			accel = 640;
-			var guyImage:Image = new Image(GUY);		
-			super(FP.width / 2, FP.height / 2, guyImage);
+			var guyImage:Image = new Image(GUY);
+			type = "Player";
+			super(loc, guyImage);
 			setHitbox(guyImage.width, guyImage.height);
 		}
 		
 		override public function update():void
 		{
 			updateMovement();
-			updateCollision();
 			super.update();
 		}
 		
 		private function updateMovement():void
 		{
-			var movement:Point = new Point;
-			
-			vx = (Input.check(Key.RIGHT) ? 1 : 0) - (Input.check(Key.LEFT) ? 1 : 0);
-			//vy = (Input.check(Key.DOWN) ? 1 : 0) - (Input.check(Key.UP) ? 1 : 0);
-			
-			if (Input.check(Key.UP) && jumping == false) {
-				vel.y = -6;
-				jumping = true
+			onGround = false;
+			if (collide(solid, x, y + 1)) 
+			{ 
+				onGround = true;
 			}
-			vel.x = vx * speed;
-			//vel.y = vy * speed;
-			if (jumping)
-				vel.y += accel * FP.elapsed * FP.elapsed;
-		}
 		
-		private function updateCollision():void 
-		{
-			y += vel.y;		
-			if (collide("level", x, y)) {
-				if (vel.y > 0) {
-					vel.y = 0;
-					jumping = false;
-					y = (Math.floor(y << 5 ) >> 5);
-					
-				} else if (vel.y < 0) {
-					vel.y = 0;
-					y = (Math.floor(y << 5 ) >> 5) + 16;
+			accel.x = 0;
+			
+			if (Input.check(Key.LEFT) && vel.x > -mMaxspeed.x) { accel.x = -movement; direction = false; }
+			if (Input.check(Key.RIGHT) && vel.x < mMaxspeed.x) { accel.x = movement; direction = true; }
+			
+			//friction (apply if we're not moving, or if our speed.x is larger than maxspeed)
+			if ( (! Input.check(Key.LEFT) && ! Input.check(Key.RIGHT)) || Math.abs(vel.x) > mMaxspeed.x ) { friction(true, false); }
+			
+			//jump
+			if ( Input.check(Key.UP) ) 
+			{
+				if (onGround) { 
+					vel.y = -jump; 		 
 				}
-				if (jumping)
-					y -= accel * FP.elapsed * FP.elapsed;
 			}
 			
-			x += vel.x;
-			if (collide("level", x, y)) {
-				if (vel.x > 0) {
-					vel.x = 0;
-					x = (Math.floor(x >> 5) << 5) + 32 - width;
-				} else if (vel.x < 0) {
-					vel.x = 0;
-					x = (Math.floor(x >> 5) << 5) + 32;
-				}
+			gravity();
+			
+			maxspeed(false, true);
+			
+			//variable jumping (tripple gravity)
+			if (vel.y < 0 && !Input.check(Key.UP)) { gravity(); gravity(); }
+			
+			
+			//set the sprites according to if we're on the ground, and if we are moving or not
+			/*if (onGround)
+			{
+				if (speed.x < 0) { sprPlayer.play("walkLeft"); }
+				if (speed.x > 0) { sprPlayer.play("walkRight"); }
 				
+				if (speed.x == 0) {
+					if (direction) { sprPlayer.play("standRight"); } else { sprPlayer.play("standLeft"); }
+				}
+			} else {
+				if (direction) { sprPlayer.play("jumpRight"); } else { sprPlayer.play("jumpLeft"); }
+				
+				//are we sliding on a wall?
+				//if (collide(solid, x - 1, y)) { sprPlayer.play("slideRight"); }
+				//if (collide(solid, x + 1, y)) { sprPlayer.play("slideLeft"); }
+			}*/
+			
+			
+			//set the motion. We set this later so it stops all movement if we should be stopped
+			processMovement();
+			
+			//did we just get.. KILLED? D:
+			if (collide("Spikes", x, y) && vel.y > 0)
+			{
+				//killme!
+				//killme();
 			}
 			
 		}
