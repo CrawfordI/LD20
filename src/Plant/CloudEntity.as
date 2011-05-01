@@ -29,7 +29,7 @@ package Plant
 		
 		public function dropWater():WaterDropEntity {
 			droppedWater = true;
-			return new WaterDropEntity( FP.height - FP.rand( 150 ), centerX, centerY );
+			return new WaterDropEntity( FP.height - FP.rand( 150 ), 100 * sprCloud.scale, centerX, centerY );
 		}
 		
 		public function wasSelected():Boolean {
@@ -55,9 +55,15 @@ package Plant
 				y = start_y;
 			}
 			
-			dx = (0.25) * FP.rand( 2 ) + 0.25;
+			dx = (0.15) * FP.rand( 4 ) + 0.25;
 			
-			sprCloud.scale = 1 + dx;
+			if( FP.rand( 1 ) ) {
+				sprCloud.scale = 1.5 + dx;
+			} else {
+				sprCloud.scale = 1.5 - dx;
+			}
+			if ( sprCloud.scale <= 0 )
+				sprCloud.scale = 1.0;
 			
 			
 			width = sprCloud.scaledWidth;

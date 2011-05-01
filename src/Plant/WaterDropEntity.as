@@ -17,8 +17,9 @@ package Plant
 		
 		private var dx:Number = 0;
 		private var dy:Number = 2.5;
-		
+		private var value:Number = 100;
 		private var maxDepth:Number = FP.height;
+		
 		private var splashed:Boolean = false;
 		
 		private const SPLASH_OVER_FRAME:int = 6;
@@ -29,9 +30,10 @@ package Plant
 			return false;
 		}
 		
-		public function WaterDropEntity( depth:Number, start_x:Number = 0, start_y:Number = 0, deltaX:Number = 0 ) 
+		public function WaterDropEntity( depth:Number, drop_value:Number, start_x:Number = 0, start_y:Number = 0, deltaX:Number = 0 ) 
 		{
 			sprWaterDrop = new Spritemap(WATERDROP, 16, 16);
+			sprWaterDrop.scale = drop_value / 100;
 			setHitbox(16, 16);
 			width = 16;
 			height = 16;
@@ -40,6 +42,7 @@ package Plant
 			y = start_y;
 			dx = deltaX;
 			setMaxDepth( depth );
+			value = drop_value;
 			
 			sprWaterDrop.add("default", [0, 1, 2, 1], 12, true);
 			sprWaterDrop.add("splash", [3, 4, 5, 6], 12, false);
@@ -61,8 +64,14 @@ package Plant
 		{
 			super.update();
 			
-			
-			if ( (atMaxDepth() && !doneSplashing()) || collide("plant", x, y) ) {
+			var plant:PlantEntity = null;
+			if ( (atMaxDepth() && !doneSplashing()) || (!splashed && (plant = collide("plant", x, y) as PlantEntity)) ) {
+				
+				if( plant != null ) {
+					plant.addWater( value );
+				}
+				// Play drop sfx here:
+				
 				splashed = true;
 				sprWaterDrop.play("splash");
 			} else  {

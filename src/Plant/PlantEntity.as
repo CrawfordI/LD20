@@ -36,6 +36,15 @@ package Plant
 			type = "plant";
 		}
 		
+		public function addWater( amount:Number ):void {
+			water += amount;
+			trace("WATER ADDED: " + amount);
+		}
+		
+		public function addEnergy( amount:Number ):void {
+			energy += amount;
+			trace("ENERGY ADDED: " + amount);
+		}
 		
 		override public function update():void 
 		{

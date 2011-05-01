@@ -24,7 +24,8 @@ package Plant
 		
 		
 		private var Cloudiness:Number;
-		private var deltaCloudiness:Number;
+		private var deltaCloudiness:Number = 3;
+		private const MAX_CLOUDINESS:int = 1500;
 		
 		[Embed(source = '../../gfx/Plant/plant_bg.png')]
 		private const BACKGROUND:Class;
@@ -52,8 +53,8 @@ package Plant
 			add(Sun);
 			add(ThePlant);
 			
-			//Cloudiness = 150;
-			Cloudiness = 500;
+			Cloudiness = 150;
+			//Cloudiness = 500;
 			
 			attemptToAddCloud( FP.rand( 100 ), FP.rand(175) + 50 );
 			attemptToAddCloud( FP.rand( 100 ), FP.rand(175) + 50 );
@@ -80,8 +81,11 @@ package Plant
 			
 			if ( Beam != null ) {
 				var destroy:Boolean = false;
-				
-				if ( Beam.collide("plant", Beam.x, Beam.y) || Beam.collide("cloud", Beam.x, Beam.y) ) {
+				var plant:PlantEntity;
+				if ( (plant = Beam.collide("plant", Beam.x, Beam.y) as PlantEntity) || Beam.collide("cloud", Beam.x, Beam.y) ) {
+					if ( plant != null ) {
+						plant.addEnergy( FP.rand( 150 ) + 50 );
+					}
 					destroy = true;
 				} else if ( Beam.atMaxDepth() ) {
 					destroy = true;
@@ -108,6 +112,11 @@ package Plant
 			// Cloud Logic:
 			cleanUpClouds();
 			attemptToAddCloud();
+			
+			// Update Cloudiness
+			Cloudiness += deltaCloudiness;
+			if ( Cloudiness > MAX_CLOUDINESS || Cloudiness <= 0 )
+				deltaCloudiness = deltaCloudiness * -1;
 			
 		}
 		
@@ -178,7 +187,7 @@ package Plant
 		
 		
 		private function attemptToAddCloud( start_x:int = 0, start_y:int = 0 ):void {
-			var chance:int = 1500 - Cloudiness
+			var chance:int = MAX_CLOUDINESS - Cloudiness
 			if ( FP.rand( chance ) == 0 )
 				addCloud( start_x, start_y );
 		}
