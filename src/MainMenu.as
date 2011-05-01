@@ -27,14 +27,16 @@ package
 		private const GAME_IDOL:int = 1;
 		private const GAME_VASE:int = 2;
 		
+		private var bgMusic:Sfx;
+		
 		[Embed(source = "../bgm/temp.mp3")]
 		public const MUSIC:Class;		
 			
 		public function MainMenu() 
 		{
-			var hellaMusic:Sfx = new Sfx(MUSIC);
+			bgMusic = new Sfx(MUSIC);
 			//hellaMusic.play();
-			hellaMusic.loop();
+			bgMusic.loop();
 			
 			menuOptions = new Array();
 			menuOrigin = new Point (50, 50);
@@ -86,13 +88,17 @@ package
 			if (Input.pressed(Key.ENTER)) {
 				switch (cursor) {
 					case GAME_PLANT:
+						bgMusic.stop();
 						FP.world = new PlantGame();
 						break;
 					case GAME_IDOL:
+						bgMusic.stop();
 						FP.world = new CursedIdolGame(this);
 						break;
 					case GAME_VASE:
+						bgMusic.stop();
 						FP.world = new VaseGame();
+						break;
 				}
 			}
 		}
