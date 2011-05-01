@@ -69,8 +69,7 @@ package CursedIdol
 			scoreText = new Text("Score: 0000000000", 10, 20);
 			scoreText.text = "Score: " + score;
 			
-			addGraphic(scoreText);
-			
+			addGraphic(scoreText);			
 			
 			lostText.centerOO();
 			promptText.centerOO();
@@ -78,7 +77,7 @@ package CursedIdol
 		}
 		
 		override public function update():void {
-			super.update();
+			super.update();			
 			if(!lost){
 				mTimer++;
 				mTimer2++;
@@ -86,14 +85,14 @@ package CursedIdol
 					var mt:Meteor = new Meteor(hero.x + FP.rand(128) - 64, hero.y + FP.rand(90) - 45, hero.x, hero.y);
 					mTimer = 0 + offset;
 					offset++;
-					add(m);
-					mFringe.push(m);
+					add(mt);
+					mFringe.push(mt);
 				}			
 				if (mTimer2 > 90) {
 					var mt2:Meteor = new Meteor(FP.rand(FP.width), FP.rand(FP.height), FP.rand(FP.width), FP.rand(FP.height));
 					mTimer2 = 0;				
-					add(m);
-					mFringe.push(m);
+					add(mt2);
+					mFringe.push(mt2);
 				}			
 				bringToFront(hero);
 				
