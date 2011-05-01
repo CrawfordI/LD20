@@ -25,12 +25,14 @@ package
 		private const GAME_PLANT:int = 0;
 		private const GAME_IDOL:int = 1;
 		
+		private var hellaMusic:Sfx;
+		
 		[Embed(source = "../bgm/temp.mp3")]
 		public const MUSIC:Class;		
 			
 		public function MainMenu() 
 		{
-			var hellaMusic:Sfx = new Sfx(MUSIC);
+			hellaMusic = new Sfx(MUSIC);
 			//hellaMusic.play();
 			hellaMusic.loop();
 			
@@ -82,9 +84,11 @@ package
 			if (Input.pressed(Key.ENTER)) {
 				switch (cursor) {
 					case GAME_PLANT:
+						hellaMusic.stop();
 						FP.world = new PlantGame();
 						break;
 					case GAME_IDOL:
+						hellaMusic.stop();
 						FP.world = new CursedIdolGame(this);
 						break;
 				}

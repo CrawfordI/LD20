@@ -69,7 +69,7 @@ package Plant
 			width = sprCloud.scaledWidth;
 			height = sprCloud.scaledHeight;
 			
-			setHitbox(sprCloud.scaledWidth, sprCloud.scaledHeight, -5, -10);
+			setHitbox(sprCloud.scaledWidth - 10, sprCloud.scaledHeight -15, -10, -10);
 			type = "cloud";
 		}
 		
