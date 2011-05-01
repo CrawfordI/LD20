@@ -1,0 +1,22 @@
+<project>
+	<name>LD20</name>
+	
+	<settings>
+		<defaultWidth>640</defaultWidth>
+		<defaultHeight>480</defaultHeight>
+	</settings>
+	
+	<tilesets>
+		<tileset name="tiles" image="gfx/vase/bgtiles.png" tileHeight="32" tileWidth="32" />
+	</tilesets>
+	
+	<layers>
+		<tiles name="backGround" gridSize = "32" />
+		<tiles name="foreGround" gridSize = "32" />
+		<objects name = "objects" gridSize = "32" />
+	</layers>
+	
+	<objects>
+		<object name="ladder" image="gfx/vase/ladder.png" height = "32" width = "32" />
+	</objects>
+</project>

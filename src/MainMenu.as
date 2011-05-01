@@ -7,6 +7,7 @@ package
 	import net.flashpunk.graphics.Text;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
+	import Vase.VaseGame;
 	
 	import CursedIdol.CursedIdolGame
 	import Plant.PlantGame;
@@ -24,15 +25,14 @@ package
 		
 		private const GAME_PLANT:int = 0;
 		private const GAME_IDOL:int = 1;
-		
-		private var hellaMusic:Sfx;
+		private const GAME_VASE:int = 2;
 		
 		[Embed(source = "../bgm/temp.mp3")]
 		public const MUSIC:Class;		
 			
 		public function MainMenu() 
 		{
-			hellaMusic = new Sfx(MUSIC);
+			var hellaMusic:Sfx = new Sfx(MUSIC);
 			//hellaMusic.play();
 			hellaMusic.loop();
 			
@@ -51,6 +51,8 @@ package
 					opt = new Text("PLANT!!!",  menuOrigin.x, menuOrigin.y +(20 * (i + 1)));
 				else if ( i == GAME_IDOL )
 					opt = new Text("Meteor Spell?",  menuOrigin.x, menuOrigin.y +(20 * (i + 1)));
+				else if ( i == GAME_VASE )
+					opt = new Text("Don't Durop Ming Baesu", menuOrigin.x, menuOrigin.y + (20 * (i + 1)));
 				else
 					opt = new Text("Option " + i, menuOrigin.x, menuOrigin.y +(20 * (i + 1)));
 				menuOptions.push(opt);
@@ -84,13 +86,13 @@ package
 			if (Input.pressed(Key.ENTER)) {
 				switch (cursor) {
 					case GAME_PLANT:
-						hellaMusic.stop();
 						FP.world = new PlantGame();
 						break;
 					case GAME_IDOL:
-						hellaMusic.stop();
 						FP.world = new CursedIdolGame(this);
 						break;
+					case GAME_VASE:
+						FP.world = new VaseGame();
 				}
 			}
 		}
