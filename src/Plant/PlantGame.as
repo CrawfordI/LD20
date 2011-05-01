@@ -37,6 +37,9 @@ package Plant
 		private var SeedImage:Image;
 		private var SeedEntity:Entity;
 		
+		private var ScoreText:Text;
+		private var HealthText:Text;
+		
 		
 		private var Cloudiness:Number = 0;
 		private var deltaCloudiness:Number = 10;
@@ -53,6 +56,10 @@ package Plant
 		
 		private var SeedDropping:Boolean = false;
 		
+		private var Score:Number = 0;
+		private var Count:Number = 0;
+		
+		private var EndGame:Boolean = false;
 		
 		public function PlantGame() 
 		{	
@@ -64,11 +71,6 @@ package Plant
 			SeedImage = new Image(SEED);
 			
 			Background.add("default", [0, 1, 2, 1], 8, true);
-			
-			//var gameTitle:Text;
-			//Text.size = 20;
-			//gameTitle = new Text("PLANT GAME!!!!!!", 640 / 2, 480 / 2);
-			//addGraphic(gameTitle);
 
 			addGraphic(Background);
 			IntroEntity = addGraphic(IntroMessage);
@@ -87,11 +89,18 @@ package Plant
 			Background.play("default");
 			
 			
+			
 			attemptToAddCloud( FP.rand( 100 ), FP.rand(175) + 50 );
 			attemptToAddCloud( FP.rand( 100 ), FP.rand(175) + 50 );
 			attemptToAddCloud( FP.rand( FP.width ), FP.rand(150) + 50 );
 			attemptToAddCloud( FP.rand( FP.width ), FP.rand(175) + 50 );
 			attemptToAddCloud( FP.rand( FP.width ), FP.rand(175) + 50 );
+			
+			ScoreText 	= new Text(" Score:           ", FP.width - 150, 205);
+			HealthText	= new Text("Health:           ", FP.width - 150, 215);
+			
+			addGraphic(ScoreText);
+			addGraphic(HealthText);
 			
 			this.state = STATE_PLAY;
 		}
@@ -128,11 +137,12 @@ package Plant
 					break;
 				case STATE_START:
 					init(SeedEntity.centerX, SeedEntity.centerY);
-					//FP.world.remove(SeedEntity);
 					state = STATE_PLAY;
 					break;
 				case STATE_PLAY:
 				
+					Count++;
+					
 					// Sun Beam Logic:
 					if ( Sun.wasSelected() ) {
 						if ( Beam == null ) {
@@ -183,22 +193,52 @@ package Plant
 					
 					SeedImage.color = ThePlant.plantColor();
 					
+					if ( ThePlant.getHealth() <= 0 || ThePlant.plantSize() >= 100 ) {
+						EndGame = true;
+					}
+					
+					updateScore();
+					updateScoreBoard();
+					
+					if ( EndGame )
+						state = STATE_OVER;
 					break;
 				case STATE_OVER:
+					//FP.world.remove(Sun);
 					break;
 			}
 			
-			
-			
+		}
+		
+		private function updateScore():void {
+			if( !EndGame ) {
+				Score += (((ThePlant.plantSize() / 100) + 1) * ThePlant.getHealth()) / 120;
+				Count++;
+			} else {
+				// Calculate Final Plant Score AND TIME BONUS
+				Score += (((ThePlant.plantSize() / 100) + 1) * ThePlant.getHealth()) / 120;
+				Score += 50000 - Count;
+			}
+		}
+		
+		private function updateScoreBoard():void {
+			var IntScore:uint = Score;
+			ScoreText.text	= " Score: " + IntScore;
+			if( ThePlant.getHealth() >= 100 )
+				HealthText.text	= "Health: " + ThePlant.getHealth() + "%";
+			else if( ThePlant.getHealth() < 10 )
+				HealthText.text	= "Health:   " + ThePlant.getHealth() + "%";
+			else
+				HealthText.text	= "Health:  " + ThePlant.getHealth() + "%";
 		}
 		
 		
-		private function cleanUpClouds():void {
+		private function cleanUpClouds( destroyAll:Boolean = false ):void {
 			
 			var removedOne:Boolean = false;
 			// Destroy any clouds off screen
 			for ( var i:int = 0; i < Clouds.length; i++ ) {
-				if ( Clouds[i] != null && Clouds[i].isOffScreen() ) {
+				if ( Clouds[i] != null && (Clouds[i].isOffScreen() || destroyAll) ) {
 					Clouds[i].destroy();
 					delete Clouds[i];
 					Clouds[i] = null;

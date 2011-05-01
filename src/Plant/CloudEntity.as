@@ -29,7 +29,7 @@ package Plant
 		
 		public function dropWater():WaterDropEntity {
 			droppedWater = true;
-			return new WaterDropEntity( FP.height - FP.rand( 150 ), 100 * sprCloud.scale, centerX, centerY );
+			return new WaterDropEntity( FP.height - (FP.rand( 100 ) + 25), 100 * sprCloud.scale, centerX, centerY );
 		}
 		
 		public function wasSelected():Boolean {
@@ -97,7 +97,7 @@ package Plant
 			if ( Input.mouseReleased ) {
 				// Did the user press and release on this entity?
 				if ( selected && collidePoint(x, y, Input.mouseX, Input.mouseY)  ) {
-					trace("PRESSED AND RELEASED ON A CLOUD!");
+				//	trace("PRESSED AND RELEASED ON A CLOUD!");
 				}
 				selected = false;
 			} else if (!Input.mouseDown) {
