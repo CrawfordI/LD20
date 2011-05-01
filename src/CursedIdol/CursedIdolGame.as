@@ -66,7 +66,7 @@ package CursedIdol
 			Text.size = 30;
 		    lostText = new Text("You lose!", FP.halfWidth, FP.halfHeight);
 			Text.size = 14;
-			promptText = new Text("Press any key to return to menu", FP.halfWidth, FP.halfHeight + lostText.height / 2);
+			promptText = new Text("Press R to return to menu", FP.halfWidth, FP.halfHeight + lostText.height / 2);
 			scoreText = new Text("Score: 0000000000", 10, 20);
 			scoreText.text = "Score: " + score;
 			
@@ -120,7 +120,7 @@ package CursedIdol
 				}
 			}
 			else {
-				if (Input.pressed(Key.ANY))
+				if (Input.pressed(Key.R))
 					FP.world = prevWorld;
 			}
 		}

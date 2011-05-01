@@ -85,7 +85,7 @@ package CursedIdol
 			}
 			else {
 				type = "crater";
-				this.setHitbox(crater.scaledWidth - (craterPad * 4) , crater.scaledHeight - (craterPad * 2), -craterPad * 2, - craterPad);
+				this.setHitbox(crater.scaledWidth - (craterPad * scale * 4) , crater.scaledHeight - (craterPad * scale * 2), -craterPad * scale* 2, - craterPad * scale / 2);
 			}						
 		}
 	
