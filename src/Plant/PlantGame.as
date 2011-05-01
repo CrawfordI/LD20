@@ -36,10 +36,14 @@ package Plant
 		private var IntroEntity:Entity;
 		private var SeedImage:Image;
 		private var SeedEntity:Entity;
+		private var GameOverImage:Image = null;
+		private var GameOverEntity:Entity = null;
 		
 		private var ScoreText:Text;
 		private var HealthText:Text;
 		
+		private var ScoreTextEntity:Entity;
+		private var HealthTextEntity:Entity;
 		
 		private var Cloudiness:Number = 0;
 		private var deltaCloudiness:Number = 10;
@@ -54,6 +58,9 @@ package Plant
 		[Embed(source = '../../gfx/Plant/plant_seed.png')]
 		private const SEED:Class;
 		
+		[Embed(source = '../../gfx/Plant/plant_gameover.png')]
+		private const GAMEOVER:Class;
+		
 		private var SeedDropping:Boolean = false;
 		
 		private var Score:Number = 0;
@@ -61,14 +68,18 @@ package Plant
 		
 		private var EndGame:Boolean = false;
 		
-		public function PlantGame() 
+		private var PreviousWorld:World;
+		
+		public function PlantGame( prevWorld:World ) 
 		{	
+			PreviousWorld = prevWorld;
 			Background = new Spritemap(BACKGROUND, 640, 480);
 			Sun = new SunEntity();
 			Clouds = new Array();
 			WaterDrops = new Array();
 			IntroMessage = new Image(INTRO_SPLASH);
 			SeedImage = new Image(SEED);
+			GameOverImage = new Image(GAMEOVER);
 			
 			Background.add("default", [0, 1, 2, 1], 8, true);
 
@@ -99,8 +110,8 @@ package Plant
 			ScoreText 	= new Text(" Score:           ", FP.width - 150, 205);
 			HealthText	= new Text("Health:           ", FP.width - 150, 215);
 			
-			addGraphic(ScoreText);
-			addGraphic(HealthText);
+			ScoreTextEntity = addGraphic(ScoreText);
+			ScoreTextEntity = addGraphic(HealthText);
 			
 			this.state = STATE_PLAY;
 		}
@@ -205,6 +216,27 @@ package Plant
 					break;
 				case STATE_OVER:
 					//FP.world.remove(Sun);
+					if ( GameOverEntity == null ) {
+						GameOverEntity = addGraphic(GameOverImage)
+						FP.world.remove(ScoreTextEntity);
+						FP.world.remove(HealthTextEntity);
+						
+						Text.font = "Comic Sans MS";
+						Text.size = 30;
+						var FinalScoreText:Text = new Text( "FINAL SCORE: ", FP.halfWidth, FP.halfHeight );
+						FinalScoreText.text = "FINAL SCORE: " + Score;
+						Text.size = 14;
+						var PromptText:Text = new Text("Press any key to return", FP.halfWidth, FP.halfHeight + FinalScoreText.height / 2);
+						
+						FinalScoreText.centerOO();
+						PromptText.centerOO();
+						
+						addGraphic( FinalScoreText );
+						addGraphic( PromptText );
+					} else if ( Input.pressed(Key.ANY) ) {
+						// GO HOME
+						FP.world = PreviousWorld;
+					}
 					break;
 			}
 			
@@ -212,16 +244,18 @@ package Plant
 		
 		private function updateScore():void {
 			if( !EndGame ) {
-				Score += (((ThePlant.plantSize() / 100) + 1) * ThePlant.getHealth()) / 120;
+				Score += ((((ThePlant.plantSize() / 100) + 1) * 2) * ( 4 * ThePlant.getHealth())) / 120;
 				Count++;
 			} else {
 				// Calculate Final Plant Score AND TIME BONUS
 				Score += (((ThePlant.plantSize() / 100) + 1) * ThePlant.getHealth()) / 120;
-				Score += 75000 - Count;
+				Score += (75000 - Count) * 5;
 				trace(" COUNT WAS: " + Count );
 				if ( Score < 0 )
 					Score = 0;
 			}
+			if ( Score > 999999999 )
+				Score = 999999999;
 		}
 		
 		private function updateScoreBoard():void {

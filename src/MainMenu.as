@@ -89,7 +89,7 @@ package
 				switch (cursor) {
 					case GAME_PLANT:
 						bgMusic.stop();
-						FP.world = new PlantGame();
+						FP.world = new PlantGame(this);
 						break;
 					case GAME_IDOL:
 						bgMusic.stop();
