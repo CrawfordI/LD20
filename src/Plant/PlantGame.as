@@ -40,7 +40,6 @@ package Plant
 		private var GameOverImage:Image = null;
 		private var GameOverEntity:Entity = null;
 		
-		private var sfxZap:Sfx;
 		
 		private var ScoreText:Text;
 		private var HealthText:Text;
@@ -67,6 +66,12 @@ package Plant
 		[Embed(source = '../../sfx/plant/plant_zap.mp3')]
 		private const SFX_ZAP:Class;
 		
+		[Embed(source = '../../sfx/plant/plant_sunspent.mp3')]
+		private const SFX_SUNSPENT:Class;
+		
+		private var sfxZap:Sfx;
+		private var sfxSunSpent:Sfx;
+		
 		private var SeedDropping:Boolean = false;
 		
 		private var Score:Number = 0;
@@ -87,6 +92,7 @@ package Plant
 			SeedImage = new Image(SEED);
 			GameOverImage = new Image(GAMEOVER);
 			sfxZap = new Sfx(SFX_ZAP);
+			sfxSunSpent = new Sfx(SFX_SUNSPENT);
 			
 			Background.add("default", [0, 1, 2, 1], 8, true);
 
@@ -167,6 +173,8 @@ package Plant
 							add(Beam);
 							// Play SFX
 							sfxZap.play();
+						} else {
+							sfxSunSpent.play();
 						}
 					}
 
