@@ -48,6 +48,7 @@ package CursedIdol
 			graphic = shadow;	
 			
 			fallSound = new Sfx(FALL);			
+			fallSound.volume = .5;
 			fallSound.play();
 			
 			x = iX - shadow.scaledWidth/2;
