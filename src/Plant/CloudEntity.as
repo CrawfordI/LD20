@@ -17,7 +17,10 @@ package Plant
 		private const CLOUD:Class;
 		
 		[Embed(source = "../../sfx/plant/plant_waterdrop.mp3")]
-		public const SFX_WATERDROP:Class;	
+		public const SFX_WATERDROP:Class;
+		
+		[Embed(source = "../../sfx/plant/plant_cloudspent.mp3")]
+		public const SFX_CLOUDSPENT:Class;
 
 		private var dx:Number = 1;
 		private var dy:Number = 1;
@@ -25,6 +28,7 @@ package Plant
 		private var droppedWater:Boolean = false;
 		
 		private var sfxWaterDrop:Sfx;
+		private var sfxCloudSpent:Sfx;
 		
 		public var sprCloud:Spritemap;
 		
@@ -54,6 +58,7 @@ package Plant
 			graphic = sprCloud;
 			
 			sfxWaterDrop = new Sfx(SFX_WATERDROP);
+			sfxCloudSpent = new Sfx(SFX_CLOUDSPENT);
 			
 			x = 0 - sprCloud.width;
 			y = FP.rand( 200 );
@@ -114,6 +119,9 @@ package Plant
 			} else if (Input.mousePressed  && collidePoint(x, y, Input.mouseX, Input.mouseY)  ) {
 				// The mouse button was just pressed this frame.
 				selected = true;
+				if ( alreadyDroppedWater() ) {
+					sfxCloudSpent.play();
+				}
 			}
 			
 		}
