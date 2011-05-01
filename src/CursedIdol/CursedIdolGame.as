@@ -39,6 +39,7 @@ package CursedIdol
 		
 		private var mFringe:Array;
 		private var score:int;
+		private var scoreTextH:Entity;
 		
 		[Embed(source = "../../gfx/idol/grass.png")]
 		public const GRASS:Class;
@@ -69,7 +70,7 @@ package CursedIdol
 			scoreText = new Text("Score: 0000000000", 10, 20);
 			scoreText.text = "Score: " + score;
 			
-			addGraphic(scoreText);			
+			scoreTextH = addGraphic(scoreText);			
 			
 			lostText.centerOO();
 			promptText.centerOO();
@@ -108,6 +109,8 @@ package CursedIdol
 					
 					//trace(score);
 					scoreText.text = "Score: " + score;
+					remove(scoreTextH);
+					scoreTextH = addGraphic(scoreText);
 				}
 				
 				if (hero.dead){

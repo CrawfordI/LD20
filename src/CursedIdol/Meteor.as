@@ -17,6 +17,8 @@ package CursedIdol
 		public const SHADOW:Class;
 		[Embed(source = "../../sfx/idol/idol_crash.mp3")]
 		public const CRASH:Class;
+		[Embed(source = "../../sfx/idol/idol_meteorfall.mp3")]
+		public const FALL:Class;
 		
 		private var fallTime:int;
 		private var fallStart:int;
@@ -26,6 +28,7 @@ package CursedIdol
 		private var yVel:Number;
 		public var falling:Boolean;
 		public var scale:Number;
+		private var fallSound:Sfx;
 		
 		private const craterPad:Number = 8;
 		
@@ -43,6 +46,9 @@ package CursedIdol
 			crater = new Image(CRATER);
 			crater.scale = scale;
 			graphic = shadow;	
+			
+			fallSound = new Sfx(FALL);			
+			fallSound.play();
 			
 			x = iX - shadow.scaledWidth/2;
 			y = iY - shadow.scaledHeight / 2;								
@@ -70,6 +76,7 @@ package CursedIdol
 					x -= (width - shadow.scaledWidth) / 2;
 					y -= (height - shadow.scaledHeight) / 2;
 					type = "impact";
+					fallSound.stop();
 					
 					var crash:Sfx = new Sfx(CRASH);
 					crash.play();
