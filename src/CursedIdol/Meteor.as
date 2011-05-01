@@ -21,7 +21,8 @@ package CursedIdol
 		private var shadow:Image;
 		private var xVel:Number;
 		private var yVel:Number;
-		private var falling:Boolean;
+		public var falling:Boolean;
+		public var scale:Number;
 		
 		private const craterPad:Number = 8;
 		
@@ -30,7 +31,7 @@ package CursedIdol
 		{
 			//this.centerOrigin();
 			falling = true;			
-			var scale:Number = .5 + (FP.random * 2);
+			scale = .5 + (FP.random * 2);
 			fallStart = FP.rand(120) + 80;
 			fallTime = fallStart;
 			shadow = new Image(SHADOW);
@@ -44,7 +45,7 @@ package CursedIdol
 			y = iY - shadow.scaledHeight / 2;								
 			
 			xVel = (xT - iX) / fallStart;
-			yVel = (yT - iY) / fallStart;
+			yVel = (yT - iY) / fallStart;			
 		}
 		
 		override public function update():void {
