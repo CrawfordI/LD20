@@ -60,7 +60,7 @@ package Plant
 			if ( Input.mouseReleased ) {
 				// Did the user press and release on this entity?
 				if ( selected && collidePoint(x, y, Input.mouseX, Input.mouseY)  ) {
-					trace("PRESSED AND RELEASED ON THE SUN!");
+				//	trace("PRESSED AND RELEASED ON THE SUN!");
 					selected = true;
 				}
 				//selected = false;

@@ -45,12 +45,12 @@ package Plant
 		
 		public function addWater( amount:Number ):void {
 			water += amount;
-			trace("WATER ADDED: " + amount);
+			//trace("WATER ADDED: " + amount);
 		}
 		
 		public function addEnergy( amount:Number ):void {
 			energy += amount;
-			trace("ENERGY ADDED: " + amount);
+		//	trace("ENERGY ADDED: " + amount);
 		}
 		
 		public function plantColor():uint {
@@ -77,7 +77,7 @@ package Plant
 					x = sX - sprPlant.scaledWidth / 2;
 					y = sY - sprPlant.scaledHeight / 2 - (70 * sprPlant.scale);
 					setHitbox( sprPlant.scaledWidth, sprPlant.scaledHeight );
-					trace("SCALE IS NOW: " + sprPlant.scale);
+			//		trace("SCALE IS NOW: " + sprPlant.scale);
 				} else {
 					healthiness += FP.rand( 30 ) + 1;
 					if ( healthiness > 100 )

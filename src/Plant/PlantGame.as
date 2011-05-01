@@ -219,14 +219,18 @@ package Plant
 					//FP.world.remove(Sun);
 					if ( GameOverEntity == null ) {
 				
-						GameOverEntity = addGraphic(GameOverImage)
+						GameOverEntity = addGraphic(GameOverImage);
 						FP.world.remove(ScoreTextEntity);
 						FP.world.remove(HealthTextEntity);
 				
-						Text.font = "Comic Sans MS";
+						if ( ThePlant.getHealth() <= 0 ) {
+							Score = 0;
+						}
+						//Text.font = "Comic Sans MS";
 						Text.size = 30;
-						var FinalScoreText:Text = new Text( "FINAL SCORE: ", FP.halfWidth, FP.halfHeight );
-						FinalScoreText.text = "FINAL SCORE: " + Score;
+						var ScoreRounded:uint = Score;
+						var FinalScoreText:Text = new Text( "FINAL SCORE:                ", FP.halfWidth, FP.halfHeight );
+						FinalScoreText.text = "FINAL SCORE: " + ScoreRounded;
 						Text.size = 14;
 						var PromptText:Text = new Text("Press any key to return", FP.halfWidth, FP.halfHeight + FinalScoreText.height / 2);
 			
@@ -235,6 +239,7 @@ package Plant
 		
 						addGraphic( FinalScoreText );
 						addGraphic( PromptText );
+						
 					} else if ( Input.pressed(Key.ANY) ) {
 						// GO HOME
 	
@@ -250,11 +255,14 @@ package Plant
 			if( !EndGame ) {
 				Score += ((((ThePlant.plantSize() / 100) + 1) * 1.3) * ( 1.9 * ThePlant.getHealth())) / 120;
 				Count++;
+				if ( ThePlant.getHealth() <= 0 ) {
+					Score = 0;
+				}
 			} else {
 				// Calculate Final Plant Score AND TIME BONUS
 				Score += (((ThePlant.plantSize() / 100) + 1) * ThePlant.getHealth()) / 120;
 				Score += (75000 - Count) * 5;
-				trace(" COUNT WAS: " + Count );
+				//trace(" COUNT WAS: " + Count );
 				if ( Score < 0 )
 					Score = 0;
 			}
