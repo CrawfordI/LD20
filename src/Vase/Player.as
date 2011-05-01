@@ -28,7 +28,7 @@ package Vase
 			y = loc.y;
 			vel = new Point;
 			speed = 2;
-			accel = 3;
+			accel = 640;
 			var guyImage:Image = new Image(GUY);		
 			super(FP.width / 2, FP.height / 2, guyImage);
 			setHitbox(guyImage.width, guyImage.height);
@@ -46,10 +46,13 @@ package Vase
 			var movement:Point = new Point;
 			
 			vx = (Input.check(Key.RIGHT) ? 1 : 0) - (Input.check(Key.LEFT) ? 1 : 0);
-			if (Input.check(Key.UP) && Math.abs(vel.y) < 1) {
+			vy = (Input.check(Key.DOWN) ? 1 : 0) - (Input.check(Key.UP) ? 1 : 0);
+			
+			if (Input.check(Key.UP) && Math.abs(vel.y) < .05) {
 				vel.y = -6;
 			}
 			vel.x = vx * speed;
+			vel.y = vy * speed;
 			vel.y += accel * FP.elapsed * FP.elapsed;
 		}
 		
@@ -59,21 +62,23 @@ package Vase
 			if (collide("level", x, y)) {
 				if (vel.y > 0) {
 					vel.y = 0;
-					y = Math.floor(y >> 5) << 5 + 32 - height;
+					y = (Math.floor(y << 5 ) >> 5) + 32 - height;
+					
 				} else if (vel.y < 0) {
 					vel.y = 0;
-					y = Math.floor(y >> 5) << 5 + 32;
+					y = (Math.floor(y << 5 ) >> 5) + 32;
 				}
-				vel.y -= accel * FP.elapsed * FP.elapsed;
+				y -= accel * FP.elapsed * FP.elapsed;
 			}
+			
 			x += vel.x;
 			if (collide("level", x, y)) {
 				if (vel.x > 0) {
 					vel.x = 0;
-					x = Math.floor(x >> 5) << 5 + 32 -width;
+					x = (Math.floor(x >> 5) << 5) + 32 -width;
 				} else if (vel.x < 0) {
 					vel.x = 0;
-					x = Math.floor(x >> 5) << 5 + 32;
+					x = (Math.floor(x >> 5) << 5) + 32;
 				}
 				
 			}
