@@ -11,7 +11,7 @@ package Plant
 	public class SunEntity extends Entity
 	{
 
-		private var dx:Number = 0.75;
+		private var dx:Number = 1.75;
 		private var dy:Number = 0;
 		
 		private var selected:Boolean = false;
@@ -30,6 +30,7 @@ package Plant
 			height = 64;
 
 			y = 20;
+			x = FP.rand( FP.width - (width + 50) ) + 50;
 			
 			sprSun.add("default", [0, 1, 2, 1], 12, true);
 			sprSun.play("default");

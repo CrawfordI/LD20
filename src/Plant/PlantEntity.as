@@ -15,17 +15,19 @@ package Plant
 		
 		public var sprPlant:Spritemap;
 		private var healthiness:Number = 1000;
-		private var water:Number;
+		private var water:Number = 0;
 		private var excessWater:Number;
-		private var energy:Number;
+		private var energy:Number = 0;
 		private var excessEnergy:Number;
+		
+		private var growthRate:Number = 0.05;
 		
 		public function PlantEntity() 
 		{	
 			sprPlant = new Spritemap(PLANT, 64, 128);
 			sprPlant.add("default", [0, 1, 2, 1], 12, true);
 			sprPlant.play("default");
-			sprPlant.scale = 1;
+			sprPlant.scale = 0.05;
 			graphic = sprPlant;
 			
 			x = 200 - sprPlant.scaledWidth / 2;
@@ -49,6 +51,16 @@ package Plant
 		override public function update():void 
 		{
 			super.update();
+			sprPlant.update();
+			if ( water >= 100 && energy >= 100 ) {
+				water -= 100;
+				energy -= 100;
+				sprPlant.scale += growthRate;
+				x = 200 - sprPlant.scaledWidth / 2;
+				y = 300 - sprPlant.scaledHeight / 2;
+				setHitbox( sprPlant.scaledWidth, sprPlant.scaledHeight / 2, 0, -20 );
+				trace("SCALE IS NOW: " + sprPlant.scale);
+			}
 			
 		//	x += dx;
 		//	y += dy;
