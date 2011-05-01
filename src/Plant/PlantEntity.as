@@ -14,7 +14,7 @@ package Plant
 		private const PLANT:Class;
 		
 		public var sprPlant:Spritemap;
-		private var healthiness:Number = 1000;
+		private var healthiness:Number = 100;
 		private var water:Number = 0;
 		private var excessWater:Number;
 		private var energy:Number = 0;
@@ -39,12 +39,10 @@ package Plant
 			y = startY - sprPlant.scaledHeight / 2;
 			//sprPlant.color = 0xAAAABB;  // looks like its wilting
 			//sprPlant.color = 0xAAAAAA;  // wilting less
-			if ( sprPlant.scaledHeight < 12 || sprPlant.scaledWidth / 2 < 12 ) {
-				setHitbox( 18, 18 );
-				
-			} else {
-				setHitbox( sprPlant.scaledWidth, sprPlant.scaledHeight / 2, 0, -20 );
-			}
+		//	if ( sprPlant.scaledHeight < 12 || sprPlant.scaledWidth / 2 < 12 ) {
+		
+				setHitbox( sprPlant.scaledWidth, sprPlant.scaledHeight );
+
 			type = "plant";
 		}
 		
@@ -67,12 +65,10 @@ package Plant
 				energy -= 100;
 				sprPlant.scale += growthRate;
 				x = sX - sprPlant.scaledWidth / 2;
-				y = sY - sprPlant.scaledHeight / 2;
-				if ( sprPlant.scaledHeight < 12 || sprPlant.scaledWidth / 2 < 12 ) {
-					setHitbox( 18, 18 );
-				} else {
-					setHitbox( sprPlant.scaledWidth, sprPlant.scaledHeight / 2, 0, -20 );
-				}
+				y = sY - sprPlant.scaledHeight / 2 - (70 * sprPlant.scale);
+		
+					setHitbox( sprPlant.scaledWidth, sprPlant.scaledHeight );
+		
 				trace("SCALE IS NOW: " + sprPlant.scale);
 			}
 			
