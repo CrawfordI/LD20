@@ -3,6 +3,7 @@ package Plant
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Backdrop;
 	import net.flashpunk.graphics.Spritemap;
+	import net.flashpunk.Sfx;
 	import net.flashpunk.World;
 	import net.flashpunk.graphics.Text;
 	import net.flashpunk.graphics.Image;
@@ -39,6 +40,8 @@ package Plant
 		private var GameOverImage:Image = null;
 		private var GameOverEntity:Entity = null;
 		
+		private var sfxZap:Sfx;
+		
 		private var ScoreText:Text;
 		private var HealthText:Text;
 		
@@ -61,6 +64,9 @@ package Plant
 		[Embed(source = '../../gfx/Plant/plant_gameover.png')]
 		private const GAMEOVER:Class;
 		
+		[Embed(source = '../../sfx/plant/plant_zap.mp3')]
+		private const SFX_ZAP:Class;
+		
 		private var SeedDropping:Boolean = false;
 		
 		private var Score:Number = 0;
@@ -80,6 +86,7 @@ package Plant
 			IntroMessage = new Image(INTRO_SPLASH);
 			SeedImage = new Image(SEED);
 			GameOverImage = new Image(GAMEOVER);
+			sfxZap = new Sfx(SFX_ZAP);
 			
 			Background.add("default", [0, 1, 2, 1], 8, true);
 
@@ -98,8 +105,6 @@ package Plant
 			add(ThePlant);
 			
 			Background.play("default");
-			
-			
 			
 			attemptToAddCloud( FP.rand( 100 ), FP.rand(175) + 50 );
 			attemptToAddCloud( FP.rand( 100 ), FP.rand(175) + 50 );
@@ -160,6 +165,8 @@ package Plant
 							Beam = new SunBeamEntity(Sun.centerX, Sun.centerY);
 							Beam.setMaxDepth( FP.height - FP.rand( 150 ) );
 							add(Beam);
+							// Play SFX
+							sfxZap.play();
 						}
 					}
 
@@ -168,6 +175,7 @@ package Plant
 						var plant:PlantEntity;
 						if ( (plant = Beam.collide("plant", Beam.x, Beam.y) as PlantEntity) || Beam.collide("cloud", Beam.x, Beam.y) ) {
 							if ( plant != null ) {
+								//Play Absorb Energy SFX Here?
 								plant.addEnergy( FP.rand( 150 ) + 50 );
 							}
 							destroy = true;

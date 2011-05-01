@@ -5,7 +5,7 @@ package Plant
 	import net.flashpunk.FP;
 	import flash.geom.Point;
 	import net.flashpunk.utils.Input;
-	
+	import net.flashpunk.Sfx;
 	
 	/**
 	 * ...
@@ -15,11 +15,16 @@ package Plant
 	{
 		[Embed(source = '../../gfx/plant/plant_cloud.png')]
 		private const CLOUD:Class;
+		
+		[Embed(source = "../../sfx/plant/plant_waterdrop.mp3")]
+		public const SFX_WATERDROP:Class;	
 
 		private var dx:Number = 1;
 		private var dy:Number = 1;
 		private var selected:Boolean;
 		private var droppedWater:Boolean = false;
+		
+		private var sfxWaterDrop:Sfx;
 		
 		public var sprCloud:Spritemap;
 		
@@ -28,6 +33,7 @@ package Plant
 		}
 		
 		public function dropWater():WaterDropEntity {
+			sfxWaterDrop.play();
 			droppedWater = true;
 			return new WaterDropEntity( FP.height - (FP.rand( 100 ) + 25), 100 * sprCloud.scale, centerX, centerY );
 		}
@@ -46,6 +52,8 @@ package Plant
 			sprCloud.add("default", [0, 1, 2, 1], 4, true);
 			sprCloud.play("default");
 			graphic = sprCloud;
+			
+			sfxWaterDrop = new Sfx(SFX_WATERDROP);
 			
 			x = 0 - sprCloud.width;
 			y = FP.rand( 200 );

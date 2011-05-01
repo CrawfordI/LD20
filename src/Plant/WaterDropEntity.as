@@ -3,6 +3,7 @@ package Plant
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.FP;
+	import net.flashpunk.Sfx;
 	/**
 	 * ...
 	 * @author Matthew Dalrymple
@@ -13,6 +14,11 @@ package Plant
 		[Embed(source = '../../gfx/plant/plant_waterdrop.png')]
 		private const WATERDROP:Class;
 		
+		[Embed(source = "../../sfx/plant/plant_splash.mp3")]
+		public const SFX_SPLASH:Class;
+		
+		private var sfxSplash:Sfx;
+		
 		public var sprWaterDrop:Spritemap;
 		
 		private var dx:Number = 0;
@@ -21,17 +27,20 @@ package Plant
 		private var maxDepth:Number = FP.height;
 		
 		private var splashed:Boolean = false;
+		private var sfxPlayed:Boolean = false;
 		
 		private const SPLASH_OVER_FRAME:int = 6;
 		
 		public function doneSplashing():Boolean {
-			if ( splashed && sprWaterDrop.frame == SPLASH_OVER_FRAME )
+			if ( splashed && sprWaterDrop.frame == SPLASH_OVER_FRAME ) {
 				return true;
+			}
 			return false;
 		}
 		
 		public function WaterDropEntity( depth:Number, drop_value:Number, start_x:Number = 0, start_y:Number = 0, deltaX:Number = 0 ) 
 		{
+			sfxSplash = new Sfx(SFX_SPLASH);
 			sprWaterDrop = new Spritemap(WATERDROP, 16, 16);
 			sprWaterDrop.scale = drop_value / 100;
 			setHitbox(16, 16);
@@ -55,8 +64,13 @@ package Plant
 		}
 		
 		public function atMaxDepth():Boolean {
-			if ( y >= maxDepth )
+			if ( y >= maxDepth ) {
+				if ( !sfxPlayed ) {
+					sfxSplash.play();
+					sfxPlayed = true;
+				}
 				return true;
+			}
 			return false;
 		}
 		
@@ -66,7 +80,6 @@ package Plant
 			
 			var plant:PlantEntity = null;
 			if ( (atMaxDepth() && !doneSplashing()) || (!splashed && (plant = collide("plant", x, y) as PlantEntity)) ) {
-				
 				if( plant != null ) {
 					plant.addWater( value );
 				}

@@ -3,6 +3,7 @@ package Plant
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.FP;
+	import net.flashpunk.Sfx;
 	/**
 	 * ...
 	 * @author Matthew Dalrymple
@@ -12,6 +13,10 @@ package Plant
 		[Embed(source = '../../gfx/plant/plant_sunbeam.png')]
 		private const SUNBEAM:Class;
 		
+		[Embed(source = '../../sfx/plant/plant_sizzle.mp3')]
+		private const SFX_SIZZLE:Class;
+		
+		private var sfxSizzle:Sfx;
 		public var sprSunBeam:Spritemap;
 		
 		private var dx:Number = 0;
@@ -19,8 +24,11 @@ package Plant
 		
 		private var maxDepth:Number = FP.height;
 		
+		private var sfxPlayed:Boolean = false;
+		
 		public function SunBeamEntity( start_x:int = 0, start_y:int = 0 ) 
 		{
+			sfxSizzle = new Sfx(SFX_SIZZLE);
 			sprSunBeam = new Spritemap(SUNBEAM, 16, 16);
 			setHitbox(16, 16);
 			width = 16;
@@ -39,8 +47,13 @@ package Plant
 		}
 		
 		public function atMaxDepth():Boolean {
-			if ( y >= maxDepth )
+			if ( y >= maxDepth ) {
+				if ( !sfxPlayed ) {
+					sfxPlayed = true;
+					sfxSizzle.play();
+				}
 				return true;
+			}
 			return false;
 		}
 		
