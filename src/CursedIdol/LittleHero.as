@@ -32,7 +32,7 @@ package  CursedIdol
 					super(FP.width / 2, FP.height / 2, heroImage);
 					
 					walk = new Sfx(WALK);
-					walk.loop();
+					//walk.loop();
 					
 					dead = false;
 					
@@ -62,10 +62,10 @@ package  CursedIdol
 					x += step * (Left + Right);
 					y += step * (Up + Down);
 					
-					if ((Input.check(Key.UP) || Input.check(Key.DOWN) || Input.check(Key.LEFT) || Input.check(Key.RIGHT)) && walk.playing)
-						walk.play();
-					else
+					if ((!Input.check(Key.UP) && !Input.check(Key.DOWN) && !Input.check(Key.LEFT) && !Input.check(Key.RIGHT)))
 						walk.stop();
+					else if( !walk.playing )
+						walk.loop();
 					
 					clampHorizontal(0, FP.width, 4);
 					clampVertical(0, FP.height, 4);
