@@ -89,25 +89,33 @@ package Plant
 				healthiness -= 10;
 			}
 			
-			if ( healthiness >= 80 && healthiness < 90 ) {
-				sprPlant.color = 0xAAAAAA;
-			} else if ( healthiness >= 70 && healthiness < 80 ) {
-				sprPlant.color 0xAAAABB;
-			} else if ( healthiness >= 60 && healthiness < 70 ) {
-				sprPlant.color 0xAAAACC;
-			} else if ( healthiness >= 50 && healthiness < 60 ) {
-				sprPlant.color 0xAAAADD;
-			} else if ( healthiness >= 40 && healthiness < 50 ) {
-				sprPlant.color 0xAAAAEE;
-			} else if ( healthiness >= 30 && healthiness < 40 ) {
-				sprPlant.color 0xAAAAFF;
-			} else if ( healthiness >= 20 && healthiness < 30 ) {
-				sprPlant.color 0xAABBBB;
-			} else if ( healthiness >= 0 && healthiness < 20 ) {
-				sprPlant.color 0xFF0000;
-			} else {
-				sprPlant.color = 0xFFFFFF;
-			}
+			//if ( healthiness >= 80 && healthiness < 90 ) {
+				//sprPlant.color = 0xAAAAAA;
+			//} else if ( healthiness >= 70 && healthiness < 80 ) {
+				//sprPlant.color 0xAAAABB;
+			//} else if ( healthiness >= 60 && healthiness < 70 ) {
+				//sprPlant.color 0xAAAACC;
+			//} else if ( healthiness >= 50 && healthiness < 60 ) {
+				//sprPlant.color 0xAAAADD;
+			//} else if ( healthiness >= 40 && healthiness < 50 ) {
+				//sprPlant.color 0xAAAAEE;
+			//} else if ( healthiness >= 30 && healthiness < 40 ) {
+				//sprPlant.color 0xAAAAFF;
+			//} else if ( healthiness >= 20 && healthiness < 30 ) {
+				//sprPlant.color 0xAABBBB;
+			//} else if ( healthiness >= 0 && healthiness < 20 ) {
+				//sprPlant.color 0xFF0000;
+			//} else {
+				//sprPlant.color = 0xFFFFFF;
+				
+			var r:int = 0 + 255.0 * (100 - healthiness) / 100;			
+			var g:int = 0 + 0.0 * (100 - healthiness) / 100;
+			var b:int = 0 + 30.0 * (100 - healthiness) / 100;			
+			
+			var pColor:uint = (r << 16) + (g << 8) + b;
+			sprPlant.color = pColor;
+			
+			//}
 			
 			time++;
 			
