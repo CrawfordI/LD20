@@ -54,7 +54,7 @@ package
 				else if ( i == GAME_IDOL )
 					opt = new Text("Meteor Spell?",  menuOrigin.x, menuOrigin.y +(20 * (i + 1)));
 				else if ( i == GAME_VASE )
-					opt = new Text("Don't Durop Ming Baesu", menuOrigin.x, menuOrigin.y + (20 * (i + 1)));
+					opt = new Text("Vase", menuOrigin.x, menuOrigin.y + (20 * (i + 1)));
 				else
 					opt = new Text("Option " + i, menuOrigin.x, menuOrigin.y +(20 * (i + 1)));
 				menuOptions.push(opt);
