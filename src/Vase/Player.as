@@ -6,8 +6,7 @@ package Vase
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.graphics.Image;
-	import Plant.CloudEntity;
-	
+	import net.flashpunk.graphics.Spritemap;
 	/**
 	 * ...
 	 * @author ...
@@ -20,15 +19,27 @@ package Vase
 		public var movement:Number = 1;
 		public var jump:Number = 5;
 		
-		[Embed(source = "../../gfx/vase/maindude.png")] public const GUY:Class;
+		[Embed(source = "../../gfx/vase/player.png")] public var GUY:Class;
+		public var sprPlayer:Spritemap = new Spritemap(GUY, 32, 48, animEnd);
+		
 		public function Player(loc:Point) 
 		{
 			x = loc.x;
 			y = loc.y;
-			var guyImage:Image = new Image(GUY);
+			sprPlayer.add("standRight", [0], 0, false);
+			sprPlayer.add("standLeft", [5], 0, false);
+			sprPlayer.add("walkRight", [4, 1, 2, 3], 4, true);
+			sprPlayer.add("walkLeft", [6, 7, 8, 9], 4, true);
+			
+			sprPlayer.add("jumpRight", [0], 0, false);
+			sprPlayer.add("jumpLeft", [5], 0, false);
+			
+			sprPlayer.play("standRight");
 			type = "Player";
-			super(loc, guyImage);
-			setHitbox(guyImage.width, guyImage.height);
+			graphic = sprPlayer;
+			
+			super(loc);
+			setHitbox(32, 48);
 		}
 		
 		override public function update():void
@@ -70,12 +81,12 @@ package Vase
 			
 			
 			//set the sprites according to if we're on the ground, and if we are moving or not
-			/*if (onGround)
+			if (onGround)
 			{
-				if (speed.x < 0) { sprPlayer.play("walkLeft"); }
-				if (speed.x > 0) { sprPlayer.play("walkRight"); }
+				if (vel.x < 0) { sprPlayer.play("walkLeft"); }
+				if (vel.x > 0) { sprPlayer.play("walkRight"); }
 				
-				if (speed.x == 0) {
+				if (vel.x == 0) {
 					if (direction) { sprPlayer.play("standRight"); } else { sprPlayer.play("standLeft"); }
 				}
 			} else {
@@ -84,7 +95,7 @@ package Vase
 				//are we sliding on a wall?
 				//if (collide(solid, x - 1, y)) { sprPlayer.play("slideRight"); }
 				//if (collide(solid, x + 1, y)) { sprPlayer.play("slideLeft"); }
-			}*/
+			}
 			
 			
 			//set the motion. We set this later so it stops all movement if we should be stopped
@@ -98,7 +109,7 @@ package Vase
 			}
 			
 		}
-		
+		public function animEnd():void { }
 	}
 
 }

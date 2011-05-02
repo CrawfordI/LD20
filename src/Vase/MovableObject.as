@@ -19,12 +19,12 @@ package Vase
 		public var mGravity:Number = 0.2
 		public var solid:String = "Solid";
 		
-		public function MovableObject(loc:Point, spr:Image ) 
+		public function MovableObject(loc:Point) 
 		{
 			x = loc.x;
 			y = loc.y;
 			type = solid;
-			super(x, y, spr);			
+			super(x, y);			
 		}
 		
 		override public function update():void 
