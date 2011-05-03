@@ -16,22 +16,19 @@ package Vase
 	{
 		 [Embed(source = '../../gfx/vase/portal.png')] public var PORTAL:Class;
 	 public var sprportal:Image = new Image(PORTAL);
-		public function Portal(xy:Point) 
+	
+	 
+	 public function Portal(xy:Point) 
 		{
-			super(xy.x, xy.y);
+			super(xy.x,xy.y);
 			
 			graphic = sprportal;
 			type = "portal";
 			
-			setHitbox(32, 32);
+			setHitbox(4, 8,-12,-16);
 		}
 		
-		override public function update():void 
-		{
-			if (collide("Player", x, y)) { 
-			
-			}
-		}
+	
 	}
 
 }

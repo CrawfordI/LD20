@@ -6,6 +6,9 @@ package Vase
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Tilemap;
 	import net.flashpunk.World
+	import net.flashpunk.utils.Input;
+	import net.flashpunk.utils.Key;
+	import net.flashpunk.graphics.Text;
 	import org.flashdevelop.utils.TraceLevel;
 	/**
 	 * ...
@@ -14,9 +17,16 @@ package Vase
 	public class VaseGame extends World
 	{
 		[Embed(source = "levels/testlevel.oel", mimeType = "application/octet-stream")] private static const DEFAULT_MAP:Class;
+		public var portal:Portal;
+		public var player:Player;
+		private var promptText:Text;
+		private var prevWorld:World;
 		
-		public function VaseGame() 
+		public function VaseGame(pw:World) 
 		{
+			prevWorld = pw;
+			promptText = new Text("Press R to return to menu", FP.halfWidth, FP.halfHeight / 2);
+			promptText.centerOO();
 		}
 		
 		override public function begin():void
@@ -26,9 +36,10 @@ package Vase
 			var o:XML;
 			
 			for each (o in LevelData.objects[0].ladder) { add(new Ladder(o.@x, o.@y)); }
-			
-			add(new Player(new Point(FP.screen.width >> 1, FP.screen.height >> 1)));
-			add(new Portal(new Point(FP.screen.width >> 1, FP.screen.height >> 2)));
+			portal = new Portal(new Point(FP.screen.width >> 1, FP.screen.height >> 2));
+			player = new Player(new Point(FP.screen.width >> 1, FP.screen.height >> 1));
+			add(player);
+			add(portal);
 	
 			var fglevel:FGLevel =  FGLevel(add(new FGLevel(DEFAULT_MAP)));
 			fglevel.getLevelData();
@@ -36,7 +47,16 @@ package Vase
 			super.begin();
 		}
 		
-		
+		override public function update():void
+		{
+			if (player.hit == true) {
+				addGraphic(promptText);
+				if (Input.pressed(Key.R)) 
+					FP.world = prevWorld;
+			} else {
+				super.update();
+			}
+		}
 	
 		
 	}

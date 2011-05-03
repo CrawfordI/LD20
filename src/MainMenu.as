@@ -108,7 +108,7 @@ package
 						break;
 					case GAME_VASE:
 					//	bgMusic.stop();
-						FP.world = new VaseGame();
+						FP.world = new VaseGame(this);
 						break;
 				}
 			}

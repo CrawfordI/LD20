@@ -18,6 +18,7 @@ package Vase
 		private var direction:Boolean;
 		public var movement:Number = 1;
 		public var jump:Number = 5;
+		public var hit:Boolean = false;
 		
 		[Embed(source = "../../gfx/vase/player.png")] public var GUY:Class;
 		public var sprPlayer:Spritemap = new Spritemap(GUY, 32, 48, animEnd);
@@ -101,12 +102,10 @@ package Vase
 			//set the motion. We set this later so it stops all movement if we should be stopped
 			processMovement();
 			
-			//did we just get.. KILLED? D:
-			if (collide("Spikes", x, y) && vel.y > 0)
-			{
-				//killme!
-				//killme();
+			if (collide("portal", x, y)) { 
+				hit = true
 			}
+			
 			
 		}
 		public function animEnd():void { }
