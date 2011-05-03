@@ -17,7 +17,6 @@ package Vase
 		
 		public function VaseGame() 
 		{
-			
 		}
 		
 		override public function begin():void
@@ -29,14 +28,16 @@ package Vase
 			for each (o in LevelData.objects[0].ladder) { add(new Ladder(o.@x, o.@y)); }
 			
 			add(new Player(new Point(FP.screen.width >> 1, FP.screen.height >> 1)));
-			
-			for each(o in LevelData.foreGround.tile)
-			{
-				add(new fgGrass(o.@x, o.@y));
-			}
+			add(new Portal(new Point(FP.screen.width >> 1, FP.screen.height >> 2)));
+	
+			var fglevel:FGLevel =  FGLevel(add(new FGLevel(DEFAULT_MAP)));
+			fglevel.getLevelData();
 			
 			super.begin();
 		}
+		
+		
+	
 		
 	}
 

@@ -8,7 +8,9 @@
 	
 	<tilesets>
 		<tileset name="tiles" image="gfx/vase/bgtiles.png" tileHeight="32" tileWidth="32" />
-		<tileset name="fgtiles" image="gfx/vase/fggrass.png" tileHeight="32" tileWidth="32" />
+		<tileset name="fgtiles" image="gfx/vase/fgtiles.png" tileHeight="32" tileWidth="32" />
+		
+		
 	</tilesets>
 	
 	<layers>
