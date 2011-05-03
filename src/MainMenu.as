@@ -36,7 +36,7 @@ package
 		{
 			bgMusic = new Sfx(MUSIC);
 			//hellaMusic.play();
-			bgMusic.loop();
+			
 			
 			menuOptions = new Array();
 			menuOrigin = new Point (50, 50);
@@ -44,25 +44,36 @@ package
 			
 			cursor = 0;			
 			
-			Text.size = 20;
-			gameTitle = new Text("FUCK YEAH!", menuOrigin.x, menuOrigin.y);
-			Text.size = 12;
-			for (var i:int = 0; i < 5; i++) {								
+			Text.size = 16;
+			gameTitle = new Text("It's dangerious to go alone, take one of these items:", menuOrigin.x, menuOrigin.y);
+			Text.size = 14;
+			for (var i:int = 0; i < 3; i++) {								
 				var opt:Text;
 				if ( i == GAME_PLANT )
-					opt = new Text("PLANT!!!",  menuOrigin.x, menuOrigin.y +(20 * (i + 1)));
+					opt = new Text("--- Healing Plant Seed",  menuOrigin.x + 15, menuOrigin.y +(50 * (i + 1)));
 				else if ( i == GAME_IDOL )
-					opt = new Text("Meteor Spell?",  menuOrigin.x, menuOrigin.y +(20 * (i + 1)));
+					opt = new Text("--- Meteor Spell?",  menuOrigin.x + 15, menuOrigin.y +(50 * (i + 1)));
 				else if ( i == GAME_VASE )
-					opt = new Text("Vase", menuOrigin.x, menuOrigin.y + (20 * (i + 1)));
+					opt = new Text("--- Vase", menuOrigin.x + 15, menuOrigin.y + (50 * (i + 1)));
 				else
-					opt = new Text("Option " + i, menuOrigin.x, menuOrigin.y +(20 * (i + 1)));
+					opt = new Text("Option " + i, menuOrigin.x + 15, menuOrigin.y +(50 * (i + 1)));
 				menuOptions.push(opt);
 				addGraphic(menuOptions[i]);
 			}						
 			
 			addGraphic(gameTitle);
 			
+		}
+		
+		override public function begin():void {
+			super.begin();
+			bgMusic.loop();
+			
+		}
+		
+		override public function end():void {
+			super.end();
+			bgMusic.stop();
 		}
 		
 		override public function update():void 
