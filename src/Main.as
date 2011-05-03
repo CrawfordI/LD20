@@ -21,7 +21,7 @@ package
 		}
 		
 		override public function init():void {
-			trace("fecal matter");
+			super.init();
 		}
 	}
 	

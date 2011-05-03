@@ -99,15 +99,15 @@ package
 			if (Input.pressed(Key.ENTER)) {
 				switch (cursor) {
 					case GAME_PLANT:
-						bgMusic.stop();
+					//	bgMusic.stop();
 						FP.world = new PlantGame(this);
 						break;
 					case GAME_IDOL:
-						bgMusic.stop();
+					//	bgMusic.stop();
 						FP.world = new CursedIdolGame(this);
 						break;
 					case GAME_VASE:
-						bgMusic.stop();
+					//	bgMusic.stop();
 						FP.world = new VaseGame();
 						break;
 				}
