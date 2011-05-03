@@ -21,7 +21,7 @@ package Vase
 		public var player:Player;
 		private var promptText:Text;
 		private var prevWorld:World;
-		
+		private var won:Boolean=false;
 		public function VaseGame(pw:World) 
 		{
 			prevWorld = pw;
@@ -49,12 +49,13 @@ package Vase
 		
 		override public function update():void
 		{
-			if (player.hit == true) {
+			super.update();
+			if (player.hit == true && won == false) {
 				addGraphic(promptText);
+				won = true;
+			} else {
 				if (Input.pressed(Key.R)) 
 					FP.world = prevWorld;
-			} else {
-				super.update();
 			}
 		}
 	
